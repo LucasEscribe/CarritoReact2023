@@ -1,19 +1,25 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Layout from "./components/Layout/Layout";
 function App() {
 
   return (
-    <>
-      <div>
-        <ul>
-          <li><a href="https://fakeapi.platzi.com/">Api</a></li>
-          <li><a href="https://fakeapi.platzi.com/en/gql/users/">Api: Users</a></li>
-          <li><a href="https://api.escuelajs.co/docs#">Docs JS</a></li>
-          <li><a href="https://docs.google.com/spreadsheets/d/1O5r02Vyt_DmjeymLF4QV_839i_0NQXee5XKCxx5bGRk/edit#gid=0">DriveInfoReact</a></li>
-        </ul>
-      </div>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route element={<Layout />}>
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/categories" element={<Categories />} />
+          <Route path="/products" element={<Products />} />
+          <Route path="/cart-detail" element={<CartDetail />} />
+          <Route path="/products:id" element={<ProductsDetail />} />
+          <Route path="/products/create" element={<ProductsCreate />} />
+          <Route path="/products/edit/:id" element={<ProductsEdit />} />
+        </Route>
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </BrowserRouter>
   );
-  
-  
 }
 
 export default App
