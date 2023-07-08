@@ -3,7 +3,7 @@ import { useEffect, useReducer } from "react";
 interface Action<T> {
   type: "INIT_REQUEST" | "REQUEST_FAILURE" | "REQUEST_SUCCESS";
   payload?: {
-    error?: any;
+    error?: unknown;
     data?: T | null;
   };
 }
@@ -11,7 +11,7 @@ interface Action<T> {
 interface State<T> {
   loading: boolean;
   data?: T | null;
-  error: any;
+  error: unknown;
 }
 
 const createGetDataReducer =

@@ -22,4 +22,10 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-Trabajo_Final_Info_React_23.pdf
+
+# Other files
+.eslintrc.cjs
+package-lock.json
+tsconfig.json
+tsconfig.node.json
+
