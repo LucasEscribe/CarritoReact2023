@@ -72,8 +72,8 @@ button:focus-visible {
 }
 
 body.dark-mode {
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color: rgba(11, 8, 33, 0.87);
+  background-color: #ababab;
 }
 
 a.dark-mode {
@@ -98,5 +98,5 @@ a.light-mode:hover {
 }
 
 button.light-mode {
-  background-color: #f9f9f9;
+  background-color: #303030;
 }

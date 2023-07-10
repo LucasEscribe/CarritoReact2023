@@ -1,13 +1,13 @@
 .navbarContainer {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    background-color: #615b5b;
-    border-bottom-left-radius: 12px;
-    border-bottom-right-radius: 12px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #615b5b;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
 }
-  
+
 .menuButton {
   margin-top: 20px;
   margin-left: 20px;
@@ -47,7 +47,6 @@
   color: #333;
   text-decoration: none;
 }
-
 
 .rightContent {
   display: flex;

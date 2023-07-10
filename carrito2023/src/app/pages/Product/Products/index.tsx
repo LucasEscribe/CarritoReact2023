@@ -1,8 +1,7 @@
 import { useQuery } from "react-query";
-import { useState } from "react";
 import QUERY_KEY_PRODUCTS from "../../../querys/products";
 import ProductCard from "../../../components/ProductCard";
-import Total from "../../Cart/CartTotal";
+import { useCart } from "../../../contexts/CartContext";
 import styles from './styles.module.css'
 
 const fetchProducts = async () => {
@@ -22,27 +21,27 @@ function Products() {
         fetchProducts
     );
 
-    const [totalPrice, setTotalPrice] = useState(0);
+    const { updateTotalPrice } = useCart();
 
     const handleAddProductToCart = (price: number) => {
-        setTotalPrice(totalPrice + price);
+        updateTotalPrice(price);
     };
 
     const handleRemoveProductFromCart = (price: number) => {
-        setTotalPrice(totalPrice - price);
+        updateTotalPrice(-price);
     };
 
     return (
         <main>
-            <div>
-                <Total totalPrice={totalPrice} />
-                <h1>Productos:</h1>
+            <h1>Todos Los Productos:</h1>
+            <div className={styles.grid}>
                 {status === "loading" && <h1>Cargando....</h1>}
                 {status === "error" && <h1>Error: {(error as Error).message}</h1>}
                 {status === "success" && data &&
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
                     data.map((product: any) => {
                         return (
-                            <div className={styles.grid}>
+                            <div>
                                 <ProductCard
                                     key={product.id}
                                     title={product.title}

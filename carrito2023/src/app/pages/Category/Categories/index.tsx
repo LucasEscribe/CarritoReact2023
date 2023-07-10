@@ -24,23 +24,25 @@ function Categories() {
     const { data, status, error } = useQuery(QUERY_KEY_CATEGORIES, fetchCategories);
 
     return (
-        <main className={styles.main}>
-            <h1>Categorías:</h1>
-            {status === "loading" && <h1>Cargando....</h1>}
-            {status === "error" && <h1>Error: {(error as Error).message}</h1>}
-            {status === "success" &&
-                data.map((category: CategoryProps) => {
-                    return (
-                        <Link
-                            to={`${category.id}/products`}
-                            key={category.id}
-                            className={styles.category}
-                        >
-                            <h2>{category.name}</h2>
-                            <img src={category.image} alt={category.name} />
-                        </Link>
-                    );
-                })}
+        <main>
+            <h1>Categorías:</ h1>
+            <div className={styles.main}>
+                {status === "loading" && <h1>Cargando....</h1>}
+                {status === "error" && <h1>Error: {(error as Error).message}</h1>}
+                {status === "success" &&
+                    data.map((category: CategoryProps) => {
+                        return (
+                            <Link
+                                to={`${category.id}/products`}
+                                key={category.id}
+                                className={styles.category}
+                            >
+                                <h2>{category.name}</h2>
+                                <img src={category.image} alt={category.name} />
+                            </Link>
+                        );
+                    })}
+            </div>
         </main>
     );
 }

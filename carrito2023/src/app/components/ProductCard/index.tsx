@@ -1,16 +1,8 @@
 import { useState } from "react";
 import styles from "./styles.module.css";
+import { Product } from "../../types/product";
 
-type ProductProps = {
-  handleRemoveProductFromCart(price: number): unknown;
-  handleAddProductToCart(price: number): unknown;
-  id: number;
-  title: string;
-  price: number;
-  description: string;
-  category: { id: number; name: string; image: string };
-  images: string;
-};
+type ProductProps = Product;
 
 function ProductCard(props: ProductProps) {
   const [quantity, setQuantity] = useState(0);

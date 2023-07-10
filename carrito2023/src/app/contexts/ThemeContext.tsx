@@ -7,6 +7,7 @@ type ThemeContextType = {
 
 export const ThemeContext = createContext<ThemeContextType>({
   darkMode: false,
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   toggleDarkMode: () => {},
 });
 

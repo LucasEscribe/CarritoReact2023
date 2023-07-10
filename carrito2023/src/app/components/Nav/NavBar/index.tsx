@@ -1,9 +1,9 @@
-import Total from "../../../pages/Cart/CartTotal";
 import { useContext, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { Link } from 'react-router-dom';
 import { ThemeContext } from "../../../contexts/ThemeContext";
-
+import { useCart } from '../../../contexts/CartContext';
+import Total from "../../../pages/Cart/CartTotal";
 import styles from './styles.module.css';
 
 function NavBar() {
@@ -17,8 +17,12 @@ function NavBar() {
 
     const handleToggleDarkMode = () => {
         toggleDarkMode();
+        document.body.classList.toggle("dark-mode");
     };
 
+    const { totalPrice } = useCart();
+
+    console.log(darkMode)
     return (
         <>
             <div className={styles.navbarContainer}>
@@ -30,10 +34,10 @@ function NavBar() {
                         <div className={styles.menu}>
                             <ul className={styles.menuList}>
                                 <li>
-                                    <Link to="/login" onClick={handleMenuClick}>Inicio de Sesión</Link>
+                                    <Link to="/login" onClick={handleMenuClick}>Inicio de Sesión *</Link>
                                 </li>
                                 <li>
-                                    <Link to="/register" onClick={handleMenuClick}>Registro de Usuario</Link>
+                                    <Link to="/register" onClick={handleMenuClick}>Registro de Usuario *</Link>
                                 </li>
                                 <li>
                                     <Link to="/" onClick={handleMenuClick}>Inicio</Link>
@@ -45,17 +49,20 @@ function NavBar() {
                                     <Link to="/products" onClick={handleMenuClick}>Productos</Link>
                                 </li>
                                 <li>
-                                    <Link to="/cart-detail" onClick={handleMenuClick}>Detalle del Carrito</Link>
+                                    <Link to="/cart-detail" onClick={handleMenuClick}>Detalle del Carrito *</Link>
                                 </li>
                             </ul>
-                            <button className={styles.themeButton} onClick={handleToggleDarkMode}>
-                                {darkMode ? '☀️' : '🌙'}
+                            <button
+                                className={`${styles.themeButton} ${darkMode ? "light-mode" : "dark-mode"}`}
+                                onClick={handleToggleDarkMode}
+                            >
+                                {darkMode ? "☀️" : "🌙"}
                             </button>
                         </div>,
                         document.body
                     )}
                 <div className={styles.rightContent}>
-                    <Total totalPrice={0} />
+                    <Total totalPrice={totalPrice} />
                 </div>
             </div>
         </>
