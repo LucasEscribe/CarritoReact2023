@@ -5,6 +5,7 @@ import { ThemeContext } from "../../../contexts/ThemeContext";
 import { useCart } from '../../../contexts/CartContext';
 import Total from "../../../pages/Cart/CartTotal";
 import styles from './styles.module.css';
+import React from 'react';
 
 function NavBar() {
     const [menuOpen, setMenuOpen] = useState(false);

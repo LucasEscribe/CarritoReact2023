@@ -12,8 +12,24 @@
   margin-bottom: 20px;
 }
 
-.button {
-  font-size: 24px;
-  padding: 16px 32px;
-  margin-bottom: 10px;
+.link {
+  display: inline-block;
+  margin: 1em;
+  background-color: #1a1a1a;
+  color: #ffffff;
+  padding: 0.6em 1.2em;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1em;
+  transition: background-color 0.25s;
+}
+
+.link:hover {
+  background-color: #535bf221;
+}
+
+.link:focus,
+.link:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
 }

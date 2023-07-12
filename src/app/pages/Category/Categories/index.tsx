@@ -2,12 +2,10 @@ import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import QUERY_KEY_CATEGORIES from "../../../querys/categories";
 import styles from "./styles.module.css";
+import React from "react";
+import { Category } from "../../../types/category"
 
-type CategoryProps = {
-    id: number;
-    name: string;
-    image: string;
-};
+type CategoryProps = Category;
 
 const fetchCategories = async () => {
     const res = await fetch("https://api.escuelajs.co/api/v1/categories");

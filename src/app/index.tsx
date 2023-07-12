@@ -1,4 +1,9 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import React from "react";
+import {
+  BrowserRouter,
+  Routes,
+  Route
+} from "react-router-dom";
 import Layout from "./components/Layout";
 import Home from "./pages/Home";
 import Categories from "./pages/Category/Categories";
@@ -14,6 +19,7 @@ const queryClient = new QueryClient();
 
 function App() {
   return (
+
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
         <CartProvider>
@@ -28,15 +34,24 @@ function App() {
                 <Route path="/categories/:categoryID/products" element={<ProductsCategory />} />
                 {/* <Route path="/cart-detail" element={<CartDetail />} /> */}
                 {/* <Route path="/products:id" element={<ProductsDetail />} /> */}
+                //protected
                 {/* <Route path="/products/create" element={<ProductsCreate />} /> */}
                 {/* <Route path="/products/edit/:id" element={<ProductsEdit />} /> */}
+                {/* <AuthProvider>
+                  <Route path="/protected" element={
+                    <RequireAuth>
+                      <ProtectedPage />
+                    </RequireAuth>
+                  }>
+                </AuthProvider>
+              </Route> */}
                 <Route path="*" element={<NotFound />} />
               </Route>
             </Routes>
           </BrowserRouter>
         </CartProvider>
       </ThemeProvider>
-    </QueryClientProvider>
+    </QueryClientProvider >
   );
 }
 

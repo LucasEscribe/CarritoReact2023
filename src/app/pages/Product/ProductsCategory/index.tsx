@@ -1,12 +1,17 @@
+import React, { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import QUERY_KEY_PRODUCTS_CATEGORY from "../../../querys/products";
 import ProductCard from "../../../components/ProductCard";
 import { useCart } from "../../../contexts/CartContext";
-import styles from './styles.module.css';
+import { Product } from "../../../types/product";
+import styles from "./styles.module.css";
+import Filter from "../../../components/Filter";
 
 const fetchProducts = async (categoryID: string) => {
-    const res = await fetch(`https://api.escuelajs.co/api/v1/categories/${categoryID}/products`);
+    const res = await fetch(
+        `https://api.escuelajs.co/api/v1/categories/${categoryID}/products`
+    );
     const json = await res.json();
 
     if (json.error) {
@@ -33,15 +38,23 @@ function ProductsCategory() {
         updateTotalPrice(-price);
     };
 
+    const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
+
+    useEffect(() => {
+        if (data) {
+            setFilteredProducts(data);
+        }
+    }, [data]);
+
     return (
         <main>
             <h1>Productos de la categoría {categoryID}:</h1>
             <div className={styles.grid}>
+                <Filter products={data || []} setFilteredProducts={setFilteredProducts} />
                 {status === "loading" && <h1>Cargando....</h1>}
                 {status === "error" && <h1>Error: {(error as Error).message}</h1>}
-                {status === "success" && data &&
-                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                    data.map((product: any) => {
+                {status === "success" &&
+                    filteredProducts.map((product: Product) => {
                         return (
                             <div>
                                 <ProductCard
@@ -52,7 +65,8 @@ function ProductsCategory() {
                                     category={product.category}
                                     images={product.images}
                                     handleAddProductToCart={handleAddProductToCart}
-                                    handleRemoveProductFromCart={handleRemoveProductFromCart} id={0}
+                                    handleRemoveProductFromCart={handleRemoveProductFromCart}
+                                    id={0}
                                 />
                             </div>
                         );

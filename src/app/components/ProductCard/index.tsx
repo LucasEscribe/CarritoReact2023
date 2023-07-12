@@ -1,10 +1,13 @@
+import React from "react";
 import { useState } from "react";
-import styles from "./styles.module.css";
 import { Product } from "../../types/product";
+import { HandleProductCart } from "../../types/handleProductCart";
+import styles from "./styles.module.css";
 
 type ProductProps = Product;
+type HandleProps = HandleProductCart;
 
-function ProductCard(props: ProductProps) {
+function ProductCard(props: ProductProps & HandleProps) {
   const [quantity, setQuantity] = useState(0);
 
   const handleAddUnit = () => {
