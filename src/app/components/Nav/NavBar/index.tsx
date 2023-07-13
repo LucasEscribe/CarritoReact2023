@@ -54,7 +54,7 @@ function NavBar() {
                                 </li>
                             </ul>
                             <button
-                                className={`${styles.themeButton} ${darkMode ? "light-mode" : "dark-mode"}`}
+                                className={`${styles.themeButton} ${darkMode ? "dark-mode" : "light-mode"}`}
                                 onClick={handleToggleDarkMode}
                             >
                                 {darkMode ? "☀️" : "🌙"}

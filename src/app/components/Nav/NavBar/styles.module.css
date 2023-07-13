@@ -24,7 +24,7 @@
 
 .menu {
   position: fixed;
-  width: 12vw;
+  width: 15vw;
   top: 30px;
   left: 52px;
   background-color: #828282;
@@ -53,4 +53,27 @@
   margin-right: 30px;
   align-items: center;
   justify-content: flex-end;
+}
+
+@media (max-width: 768px) {
+  .navbarContainer {
+    position: relative;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .menuButton {
+    margin-top: 10px;
+    margin-left: 10px;
+  }
+
+  .menu {
+    width: 33%;
+    top: 70px;
+    left: 0;
+  }
+
+  .rightContent {
+    margin-right: 10px;
+  }
 }

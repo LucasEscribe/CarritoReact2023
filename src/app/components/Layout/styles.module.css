@@ -8,3 +8,13 @@
 .outletContainer {
   margin-top: 160px;
 }
+
+@media (max-width: 768px) {
+  .layoutContainer {
+    position: static;
+  }
+
+  .outletContainer {
+    margin-top: 80px;
+  }
+}
