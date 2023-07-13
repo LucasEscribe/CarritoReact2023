@@ -1,0 +1,56 @@
+.navbarContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #615b5b;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+.menuButton {
+  margin-top: 20px;
+  margin-left: 20px;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.menuIcon {
+  padding: 10px;
+  font-size: 30px;
+}
+
+.menu {
+  position: fixed;
+  width: 12vw;
+  top: 30px;
+  left: 52px;
+  background-color: #828282;
+  border: 1px solid #322946;
+  border-radius: 7px;
+  padding: 10px;
+}
+
+.menuList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menuList li {
+  margin-bottom: 5px;
+}
+
+.menuList li a {
+  color: #333;
+  text-decoration: none;
+}
+
+.rightContent {
+  display: flex;
+  margin-right: 30px;
+  align-items: center;
+  justify-content: flex-end;
+}

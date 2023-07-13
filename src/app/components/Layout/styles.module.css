@@ -1,0 +1,10 @@
+.layoutContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.outletContainer {
+  margin-top: 160px;
+}
