@@ -31,6 +31,10 @@
   border: 1px solid #322946;
   border-radius: 7px;
   padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .menuList {
@@ -46,6 +50,10 @@
 .menuList li a {
   color: #333;
   text-decoration: none;
+}
+
+.themeButton {
+  margin-top: 10px;
 }
 
 .rightContent {

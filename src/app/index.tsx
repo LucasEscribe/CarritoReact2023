@@ -9,10 +9,15 @@ import Home from "./pages/Home";
 import Categories from "./pages/Category/Categories";
 import Products from "./pages/Product/Products";
 import ProductsCategory from "./pages/Product/ProductsCategory";
+import ProductEdit from "./pages/Product/ProductEdit";
+import ProductCreate from "./pages/Product/ProductCreate";
 import NotFound from "./pages/NotFound";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { CartProvider } from "./contexts/CartContext";
+import AuthProvider from "./contexts/AuthContext";
+import RequireAuth from "./components/Auth/RequireAuth";
+import Login from "./pages/Auth/Login";
 
 
 const queryClient = new QueryClient();
@@ -24,33 +29,43 @@ function App() {
       <ThemeProvider>
         <CartProvider>
           <BrowserRouter>
-            <Routes>
-              <Route element={<Layout />}>
-                {/* <Route path="/login" element={<Login />} /> */}
-                {/* <Route path="/register" element={<Register />} /> */}
-                <Route path="/" element={<Home />} />
-                <Route path="/categories" element={<Categories />} />
-                <Route path="/products" element={<Products />} />
-                <Route path="/categories/:categoryID/products" element={<ProductsCategory />} />
-                {/* <Route path="/cart-detail" element={<CartDetail />} /> */}
-                {/* <Route path="/products:id" element={<ProductsDetail />} /> */}
+            <AuthProvider>
+              <Routes>
+                <Route element={<Layout />}>
+                //public
+                  <Route path="/" element={<Home />} />
+
+                  <Route path="/products" element={<Products />} />
+                  {/* <Route path="/products:id" element={<ProductsDetail />} /> */}
+
+                  <Route path="/categories" element={<Categories />} />
+                  <Route path="/categories/:categoryID/products" element={<ProductsCategory />} />
+
+                  {/* <Route path="/cart-detail" element={<CartDetail />} /> */}
+
+                //public auth
+                  <Route path="/login" element={<Login />} />
+                  {/* <Route path="/register" element={<Register />} /> */}
+
                 //protected
-                {/* <Route path="/products/create" element={<ProductsCreate />} /> */}
-                {/* <Route path="/products/edit/:id" element={<ProductsEdit />} /> */}
-                {/* <AuthProvider>
-                  <Route path="/protected" element={
+                  <Route path="/products/create" element={
                     <RequireAuth>
-                      <ProtectedPage />
+                      <ProductCreate />
                     </RequireAuth>
-                  }>
-                </AuthProvider>
-              </Route> */}
+                  } />
+
+                  <Route path="/products/edit/:id" element={
+                    <RequireAuth>
+                      <ProductEdit />
+                    </RequireAuth>
+                  } />
+                </Route>
                 <Route path="*" element={<NotFound />} />
-              </Route>
             </Routes>
-          </BrowserRouter>
-        </CartProvider>
-      </ThemeProvider>
+          </AuthProvider>
+        </BrowserRouter>
+      </CartProvider>
+    </ThemeProvider>
     </QueryClientProvider >
   );
 }

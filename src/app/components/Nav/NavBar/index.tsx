@@ -34,12 +34,7 @@ function NavBar() {
                     createPortal(
                         <div className={styles.menu}>
                             <ul className={styles.menuList}>
-                                <li>
-                                    <Link to="/login" onClick={handleMenuClick}>Inicio de Sesión *</Link>
-                                </li>
-                                <li>
-                                    <Link to="/register" onClick={handleMenuClick}>Registro de Usuario *</Link>
-                                </li>
+
                                 <li>
                                     <Link to="/" onClick={handleMenuClick}>Inicio</Link>
                                 </li>
@@ -51,6 +46,12 @@ function NavBar() {
                                 </li>
                                 <li>
                                     <Link to="/cart-detail" onClick={handleMenuClick}>Detalle del Carrito *</Link>
+                                </li>
+                                <li>
+                                    <Link to="/login" onClick={handleMenuClick}>Inicio de Sesión</Link>
+                                </li>
+                                <li>
+                                    <Link to="/register" onClick={handleMenuClick}>Registro de Usuario *</Link>
                                 </li>
                             </ul>
                             <button
