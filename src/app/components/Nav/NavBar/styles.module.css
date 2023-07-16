@@ -83,7 +83,6 @@
   cursor: pointer;
 }
 
-/* Eliminar el resaltado del botón cuando se hace clic */
 .transparentButton:focus,
 .totalButton:focus {
   outline: none;
@@ -92,8 +91,12 @@
 @media (max-width: 768px) {
   .navbarContainer {
     position: relative;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
   }
 
   .menuButton {
@@ -105,7 +108,7 @@
 
   .menu {
     position: fixed;
-    width: 15vw;
+    width: 30vw;
     top: 30px;
     right: calc(100% - 70px);
     background-color: #828282;
@@ -127,7 +130,7 @@
   }
 
   .totalButton {
-    position: absolute;
+    position: relative;
     top: 10px;
     left: 50%;
     transform: translateX(-50%);
