@@ -6,15 +6,28 @@
   background-color: #615b5b;
   border-bottom-left-radius: 12px;
   border-bottom-right-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+}
+
+.totalButton {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
 }
 
 .menuButton {
-  margin-top: 20px;
-  margin-left: 20px;
+  margin-top: 10px;
+  margin-left: 10px;
   background: none;
   border: none;
   padding: 0;
   cursor: pointer;
+  position: relative;
+  top: -10px;
+  left: -10px;
 }
 
 .menuIcon {
@@ -63,6 +76,19 @@
   justify-content: flex-end;
 }
 
+.transparentButton {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+/* Eliminar el resaltado del botón cuando se hace clic */
+.transparentButton:focus,
+.totalButton:focus {
+  outline: none;
+}
+
 @media (max-width: 768px) {
   .navbarContainer {
     position: relative;
@@ -73,15 +99,41 @@
   .menuButton {
     margin-top: 10px;
     margin-left: 10px;
-  }
-
-  .menu {
-    width: 33%;
-    top: 70px;
+    top: 0;
     left: 0;
   }
 
+  .menu {
+    position: fixed;
+    width: 15vw;
+    top: 30px;
+    right: calc(100% - 70px);
+    background-color: #828282;
+    border: 1px solid #322946;
+    border-radius: 7px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
   .rightContent {
-    margin-right: 10px;
+    display: flex;
+    margin-top: 0;
+    margin-right: 0px;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  .totalButton {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
   }
 }

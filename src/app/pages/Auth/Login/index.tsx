@@ -26,7 +26,9 @@ function Login() {
         }
     );
 
-    let from = location.state?.from?.pathname || '/';
+    // let from = location.state?.from?.pathname || '/';
+    let from = (location.state && location.state.from && location.state.from.pathname) || '/edit';
+
 
     function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
@@ -41,7 +43,7 @@ function Login() {
 
     return (
         <div className={styles.container}>
-            {/* <p>Debe estar loggeado para ver la página de {from}</p> */}
+            <p>Debe estar loggeado para ver la página de {from}</p>
             <p>Debe estar loggeado para ver la página de edición.</p>
             <form className={styles.form} onSubmit={handleSubmit}>
                 <label>

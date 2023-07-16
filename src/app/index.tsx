@@ -8,6 +8,7 @@ import Layout from "./components/Layout";
 import Home from "./pages/Home";
 import Categories from "./pages/Category/Categories";
 import Products from "./pages/Product/Products";
+import ProductDetail from "./pages/Product/ProductDetail";
 import ProductsCategory from "./pages/Product/ProductsCategory";
 import ProductEdit from "./pages/Product/ProductEdit";
 import ProductCreate from "./pages/Product/ProductCreate";
@@ -18,6 +19,7 @@ import { CartProvider } from "./contexts/CartContext";
 import AuthProvider from "./contexts/AuthContext";
 import RequireAuth from "./components/Auth/RequireAuth";
 import Login from "./pages/Auth/Login";
+import Register from "./pages/Auth/Register";
 
 
 const queryClient = new QueryClient();
@@ -36,7 +38,7 @@ function App() {
                   <Route path="/" element={<Home />} />
 
                   <Route path="/products" element={<Products />} />
-                  {/* <Route path="/products:id" element={<ProductsDetail />} /> */}
+                  <Route path="/products/:productID" element={<ProductDetail />} />
 
                   <Route path="/categories" element={<Categories />} />
                   <Route path="/categories/:categoryID/products" element={<ProductsCategory />} />
@@ -45,7 +47,7 @@ function App() {
 
                 //public auth
                   <Route path="/login" element={<Login />} />
-                  {/* <Route path="/register" element={<Register />} /> */}
+                  <Route path="/register" element={<Register />} />
 
                 //protected
                   <Route path="/products/create" element={

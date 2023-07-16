@@ -1,0 +1,65 @@
+.productContainer {
+  display: flex;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 20px;
+}
+
+.imageContainer {
+  flex: 0 0 auto;
+  margin-right: 20px;
+}
+
+.productImage {
+  width: 200px;
+  height: auto;
+}
+
+.infoContainer {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.description {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.price {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.handlerSubtotal {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  justify-content: space-around;
+}
+
+.remove,
+.add {
+  font-size: 22px;
+  padding: 5px 10px;
+  border: none;
+  background-color: #ffffff;
+  color: #000000;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.remove:hover,
+.add:hover {
+  background-color: #999;
+}
+
+.subtotal {
+  font-size: 16px;
+  margin-left: 10px;
+}
