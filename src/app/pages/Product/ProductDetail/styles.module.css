@@ -3,6 +3,7 @@
   border: 1px solid #ccc;
   border-radius: 4px;
   padding: 20px;
+  margin: 28px;
 }
 
 .imageContainer {
@@ -62,4 +63,55 @@
 .subtotal {
   font-size: 16px;
   margin-left: 10px;
+}
+
+@media (max-width: 768px) {
+  .productContainer {
+    flex-direction: column;
+    margin: 25px;
+  }
+
+  .imageContainer {
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+
+  .productImage {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .infoContainer {
+    flex: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .productContainer {
+    margin: 20px;
+  }
+
+  .title {
+    font-size: 20px;
+  }
+
+  .description {
+    font-size: 16px;
+  }
+
+  .price {
+    font-size: 14px;
+  }
+
+  .remove,
+  .add {
+    font-size: 18px;
+    padding: 3px 6px;
+    margin-right: 5px;
+  }
+
+  .subtotal {
+    font-size: 14px;
+    margin-left: 5px;
+  }
 }

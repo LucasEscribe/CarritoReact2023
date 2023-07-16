@@ -23,10 +23,10 @@ function NavBar() {
         toggleDarkMode();
         document.body.classList.toggle("dark-mode");
     };
+    //console.log(darkMode)
 
     const { totalPrice } = useCart();
 
-    console.log(darkMode)
     return (
         <>
             <div className={styles.navbarContainer}>

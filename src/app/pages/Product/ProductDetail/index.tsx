@@ -27,6 +27,7 @@ function ProductDetail() {
 
   const { updateTotalPrice } = useCart();
 
+  // Mover aquí la declaración del estado quantity y setQuantity
   const [quantity, setQuantity] = useState(0);
 
   const handleAddUnit = () => {
