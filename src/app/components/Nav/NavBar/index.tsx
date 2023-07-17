@@ -36,9 +36,9 @@ function NavBar() {
                     </button>
                 </div>
                 <div className={styles.rightContent}>
-                    <button className={`${styles.totalButton} ${styles.transparentButton}`}>
+                    <Link to="/cart-detail" className={`${styles.totalButton} ${styles.transparentButton}`}>
                         <Total totalPrice={totalPrice} />
-                    </button>
+                    </Link>
                 </div>
                 {menuOpen &&
                     createPortal(

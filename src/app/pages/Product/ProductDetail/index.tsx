@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useQuery } from "react-query";
 import { Product } from "../../../types/product";
 import styles from "./styles.module.css";
@@ -27,7 +27,6 @@ function ProductDetail() {
 
   const { updateTotalPrice } = useCart();
 
-  // Mover aquí la declaración del estado quantity y setQuantity
   const [quantity, setQuantity] = useState(0);
 
   const handleAddUnit = () => {
@@ -65,35 +64,83 @@ function ProductDetail() {
     minimumFractionDigits: 2,
   });
 
+  const images = Array.isArray(product.images)
+    ? product.images
+    : [product.images];
+
   return (
-    <div className={styles.productContainer}>
-      <div className={styles.imageContainer}>
-        <img
-          src={product.images}
-          alt={product.title}
-          className={styles.productImage}
-        />
-      </div>
-      <div className={styles.infoContainer}>
-        <h2 className={styles.title}>{product.title}</h2>
-        <h3 className={styles.description}>{product.description}</h3>
-        <p>Precio: {formattedPrice}</p>
-        <div className={styles.handlerSubtotal}>
-          <button className={styles.remove} onClick={handleRemoveUnit}>
-            -
-          </button>
-          <span>{quantity}</span>
-          <button className={styles.add} onClick={handleAddUnit}>
-            +
-          </button>
-          <span>Subtotal: {formattedSubtotal}</span>
+    <>
+      <div className={styles.productContainer}>
+        <div className={styles.imageContainer}>
+          <img
+            src={product.images}
+            alt={product.title}
+            className={styles.productImage}
+          />
+        </div>
+        <div className={styles.infoContainer}>
+          <div className={styles.title}>
+            <h2>{product.title}</h2>
+          </div>
+          <div className={styles.description}>
+            <p>{product.description}</p>
+          </div>
+          <div className={styles.price}>
+            <p>Precio: <span className={styles.highlight}>{formattedPrice}</span></p>
+          </div>
+          <div className={styles.handlerSubtotal}>
+            <div className={styles.handler}>
+              <button className={styles.remove} onClick={handleRemoveUnit}>
+                -
+              </button>
+              <span className={styles.counter}>{quantity}</span>
+              <button className={styles.add} onClick={handleAddUnit}>
+                +
+              </button>
+            </div>
+            <div className={styles.subtotal}>
+              <p>Subtotal: <span className={styles.highlight}>{formattedSubtotal}</span></p>
+            </div>
+          </div>
+          <div className={styles.buttonContainer}>
+            <Link to={`/cart-detail`}>
+              <button className={styles.categoryButton}>
+                Ver Carrito
+              </button>
+            </Link>
+          </div>
         </div>
       </div>
-      <div className={styles.infoContainer}>
-        <p>Categoría: {product.category.name}</p>
-        <img src={product.category.image} width={64} height={64} alt={product.category.name} />
+
+      <div className={styles.carruselContainer}>
+        <div className={styles.gridContainer}>
+          {images.map((image, index) => (
+            <img
+              key={index}
+              src={image}
+              alt={`Product Image ${index + 1}`}
+              className={styles.gridImage}
+            />
+          ))}
+        </div>
       </div>
-    </div>
+
+      <div className={styles.productCategoryContainer}>
+        <div className={styles.productCategoryFrame}>
+          <Link to={`/categories/${product.category.id}/products`}>
+            <h3 className={styles.categoryTitle}>Ver Categoría</h3>
+            <h2 className={styles.categoryName}>{product.category.name}</h2>
+            <img
+              src={product.category.image}
+              width={128}
+              height={128}
+              alt={product.category.name}
+            />
+          </Link>
+        </div>
+      </div>
+
+    </>
   );
 }
 
