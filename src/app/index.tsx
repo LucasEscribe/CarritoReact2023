@@ -4,6 +4,10 @@ import {
   Routes,
   Route
 } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "react-query";
+import { ThemeProvider } from "./contexts/ThemeContext";
+import { CartProvider } from "./contexts/CartContext";
+
 import Layout from "./components/Layout";
 import Home from "./pages/Home";
 import Categories from "./pages/Category/Categories";
@@ -13,9 +17,6 @@ import ProductsCategory from "./pages/Product/ProductsCategory";
 import ProductEdit from "./pages/Product/ProductAdmin/ProductEdit";
 import ProductCreate from "./pages/Product/ProductAdmin/ProductCreate";
 import NotFound from "./pages/NotFound";
-import { QueryClient, QueryClientProvider } from "react-query";
-import { ThemeProvider } from "./contexts/ThemeContext";
-import { CartProvider } from "./contexts/CartContext";
 import AuthProvider from "./contexts/AuthContext";
 import RequireAuth from "./components/Auth/RequireAuth";
 import Login from "./pages/Auth/Login";

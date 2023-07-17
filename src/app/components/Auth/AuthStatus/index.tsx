@@ -14,7 +14,7 @@ function AuthStatus() {
         <p>
             Bienvenido {auth.user.access_token}!{' '}
             <button onClick={() => {
-                auth.signout(() => navigate('/'));
+                auth.signout(() => <Navigate to="/" />);
             }}
             >
                 Cerrar Sesión

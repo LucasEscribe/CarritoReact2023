@@ -10,6 +10,8 @@ function Login() {
     let navigate = useNavigate();
     let location = useLocation();
     let auth = UseAuth();
+    let from = (location.state && location.state.from && location.state.from.pathname) || '/products/create';
+    
     const signinMutation = useMutation(
         (data: UserLoginData) => {
             return axios.post('https://api.escuelajs.co/api/v1/auth/login', data);
@@ -23,11 +25,11 @@ function Login() {
                     navigate(from, { replace: true });
                 });
             },
+            onError: (data) => {
+                alert("Usuario o clave incorrecto.");
+            },
         }
     );
-
-    // let from = location.state?.from?.pathname || '/';
-    let from = (location.state && location.state.from && location.state.from.pathname) || '/edit';
 
 
     function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -50,7 +52,7 @@ function Login() {
                     Email: <input name="email" type="text" />
                 </label>
                 <label>
-                    Password: <input name="password" type="text" />
+                    Password: <input name="password" type="password" />
                 </label>
                 <button type="submit">
                     {signinMutation.isLoading ? 'Cargando...' : 'Login'}
