@@ -2,7 +2,8 @@ import React from "react";
 import {
   BrowserRouter,
   Routes,
-  Route
+  Route,
+  Navigate,
 } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ThemeProvider } from "./contexts/ThemeContext";
@@ -21,13 +22,12 @@ import AuthProvider from "./contexts/AuthContext";
 import RequireAuth from "./components/Auth/RequireAuth";
 import Login from "./pages/Auth/Login";
 import Register from "./pages/Auth/Register";
-
+import CartDetail from "./pages/Cart/CartDetail";
 
 const queryClient = new QueryClient();
 
 function App() {
   return (
-
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
         <CartProvider>
@@ -35,42 +35,27 @@ function App() {
             <AuthProvider>
               <Routes>
                 <Route element={<Layout />}>
-                //public
                   <Route path="/" element={<Home />} />
-
                   <Route path="/products" element={<Products />} />
                   <Route path="/products/:productID" element={<ProductDetail />} />
-
                   <Route path="/categories" element={<Categories />} />
                   <Route path="/categories/:categoryID/products" element={<ProductsCategory />} />
-
-                  {/* <Route path="/cart-detail" element={<CartDetail />} /> */}
-
-                //public auth
                   <Route path="/login" element={<Login />} />
                   <Route path="/register" element={<Register />} />
 
-                //protected
-                  <Route path="/products/create" element={
-                    <RequireAuth>
-                      <ProductCreate />
-                    </RequireAuth>
-                  } />
+                  <Route path="/products/create" element={<RequireAuth adminOnly><React.Fragment><ProductCreate /></React.Fragment></RequireAuth>} />
+                  <Route path="/products/edit/:id" element={<RequireAuth adminOnly><React.Fragment><ProductEdit /></React.Fragment></RequireAuth>} />
+                  <Route path="/cart-detail" element={<RequireAuth customerOnly><React.Fragment><CartDetail /></React.Fragment></RequireAuth>}></Route>
 
-                  <Route path="/products/edit/:id" element={
-                    <RequireAuth>
-                      <ProductEdit />
-                    </RequireAuth>
-                  } />
                 </Route>
                 <Route path="*" element={<NotFound />} />
-            </Routes>
-          </AuthProvider>
-        </BrowserRouter>
-      </CartProvider>
-    </ThemeProvider>
-    </QueryClientProvider >
+              </Routes>
+            </AuthProvider>
+          </BrowserRouter>
+        </CartProvider>
+      </ThemeProvider>
+    </QueryClientProvider>
   );
 }
 
-export default App
+export default App;

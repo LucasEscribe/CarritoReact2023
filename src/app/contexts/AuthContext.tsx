@@ -7,6 +7,7 @@ export interface UserLoginData{
 
 export interface UserLoginDataResponse{
     access_token: string;
+    role: string;
 }
 
 interface AuthContextType {
