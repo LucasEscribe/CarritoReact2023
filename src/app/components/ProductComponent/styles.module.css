@@ -11,3 +11,10 @@
     margin: 22px;
   }
 }
+
+.pagination {
+  display: flex;
+  justify-content: space-around;
+  margin: 30px;
+  padding: 10px;
+}

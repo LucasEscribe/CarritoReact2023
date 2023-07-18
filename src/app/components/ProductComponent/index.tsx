@@ -11,10 +11,11 @@ interface ProductComponentProps {
   categoryID?: string;
 }
 
-const fetchProducts = async (categoryID?: string) => {
-  let url = "https://api.escuelajs.co/api/v1/products";
+const fetchProducts = async (categoryID?: string, offset = 0, limit = 10) => {
+  let url = `https://api.escuelajs.co/api/v1/products?offset=${offset}&limit=${limit}`;
+
   if (categoryID) {
-    url = `https://api.escuelajs.co/api/v1/categories/${categoryID}/products`;
+    url = `https://api.escuelajs.co/api/v1/categories/${categoryID}/products?offset=${offset}&limit=${limit}`;
   }
 
   const res = await fetch(url);
@@ -28,9 +29,12 @@ const fetchProducts = async (categoryID?: string) => {
 };
 
 function ProductComponent({ categoryID }: ProductComponentProps) {
+  const [offset, setOffset] = useState(0);
+  const [limit] = useState(10);
+
   const { data, status, error } = useQuery(
-    categoryID ? ["products", categoryID] : "products",
-    () => fetchProducts(categoryID)
+    categoryID ? ["products", categoryID, offset, limit] : ["products", offset, limit],
+    () => fetchProducts(categoryID, offset, limit)
   );
 
   const { updateTotalPrice } = useCart();
@@ -50,6 +54,16 @@ function ProductComponent({ categoryID }: ProductComponentProps) {
       setFilteredProducts(data);
     }
   }, [data]);
+
+  const nextPage = () => {
+    setOffset(offset + limit);
+  };
+
+  const previousPage = () => {
+    if (offset >= limit) {
+      setOffset(offset - limit);
+    }
+  };
 
   return (
     <main>
@@ -97,6 +111,12 @@ function ProductComponent({ categoryID }: ProductComponentProps) {
               </div>
             );
           })}
+      </div>
+      <div className={styles.pagination}>
+        <button onClick={previousPage} disabled={offset === 0}>
+          Página anterior
+        </button>
+        <button onClick={nextPage}>Siguiente página</button>
       </div>
     </main>
   );
