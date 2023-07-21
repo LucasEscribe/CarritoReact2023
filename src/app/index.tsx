@@ -23,6 +23,8 @@ import RequireAuth from "./components/Auth/RequireAuth";
 import Login from "./pages/Auth/Login";
 import Register from "./pages/Auth/Register";
 import CartDetail from "./pages/Cart/CartDetail";
+import CategoryCreate from "./pages/Category/CategoriesAdmin/CategoryCreate";
+import CategoryEdit from "./pages/Category/CategoriesAdmin/CategoryEdit";
 
 const queryClient = new QueryClient();
 
@@ -45,6 +47,9 @@ function App() {
 
                   <Route path="/products/create" element={<RequireAuth adminOnly><React.Fragment><ProductCreate /></React.Fragment></RequireAuth>} />
                   <Route path="/products/edit/:id" element={<RequireAuth adminOnly><React.Fragment><ProductEdit /></React.Fragment></RequireAuth>} />
+                  <Route path="/categories/create" element={<RequireAuth adminOnly><CategoryCreate /></RequireAuth>} />
+                  <Route path="/categories/edit/:categoryId" element={<RequireAuth adminOnly><CategoryEdit /></RequireAuth>} />
+                  
                   <Route path="/cart-detail" element={<RequireAuth customerOnly><React.Fragment><CartDetail /></React.Fragment></RequireAuth>}></Route>
 
                 </Route>
