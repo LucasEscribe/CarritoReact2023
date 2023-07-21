@@ -1,0 +1,20 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  margin: 28px;
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    margin: 22px;
+  }
+}
+
+.pagination {
+  display: flex;
+  justify-content: space-around;
+  margin: 30px;
+  padding: 10px;
+}

@@ -1,5 +1,5 @@
 .product_container {
-  border: solid 1px white;
+  border: solid 1px rgb(184, 166, 166);
   border-radius: 10px;
   padding: 10px;
   flex: 0 0 calc(33.33% - 20px);

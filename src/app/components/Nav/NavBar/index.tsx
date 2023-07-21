@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { Link } from 'react-router-dom';
 import { ThemeContext } from "../../../contexts/ThemeContext";
@@ -9,52 +9,80 @@ import React from 'react';
 
 function NavBar() {
     const [menuOpen, setMenuOpen] = useState(false);
+    const menuRef = useRef<HTMLDivElement>(null);
 
+    // menú click
     const handleMenuClick = () => {
         setMenuOpen(!menuOpen);
     };
 
+    //modo oscuro:
     const { darkMode, toggleDarkMode } = useContext(ThemeContext);
 
     const handleToggleDarkMode = () => {
         toggleDarkMode();
         document.body.classList.toggle("dark-mode");
     };
+    //console.log(darkMode)
 
     const { totalPrice } = useCart();
 
-    console.log(darkMode)
     return (
         <>
             <div className={styles.navbarContainer}>
-                <button className={styles.menuButton} onClick={handleMenuClick}>
-                    <span className={styles.menuIcon}>&#8942;</span>
-                </button>
+                <div>
+                    <button className={`${styles.menuButton} ${styles.transparentButton}`} onClick={handleMenuClick}>
+                        <span className={styles.menuIcon}>&#8942;</span>
+                    </button>
+                </div>
+                <div className={styles.rightContent}>
+                    <Link to="/cart-detail" className={`${styles.totalButton} ${styles.transparentButton}`}>
+                        <Total totalPrice={totalPrice} />
+                    </Link>
+                </div>
                 {menuOpen &&
                     createPortal(
                         <div className={styles.menu}>
                             <ul className={styles.menuList}>
                                 <li>
-                                    <Link to="/login" onClick={handleMenuClick}>Inicio de Sesión *</Link>
+                                    <Link to="/" onClick={handleMenuClick}>
+                                        <h2>Inicio</h2>
+                                    </Link>
+                                </li>
+                                <br />
+                                <li>
+                                    <Link to="/categories" onClick={handleMenuClick}>
+                                        Categorías
+                                    </Link>
                                 </li>
                                 <li>
-                                    <Link to="/register" onClick={handleMenuClick}>Registro de Usuario *</Link>
+                                    <Link to="/products" onClick={handleMenuClick}>
+                                        Productos
+                                    </Link>
                                 </li>
                                 <li>
-                                    <Link to="/" onClick={handleMenuClick}>Inicio</Link>
+                                    <Link to="/cart-detail" onClick={handleMenuClick}>
+                                        * Detalle del Carrito *
+                                    </Link>
                                 </li>
+                                <br />
                                 <li>
-                                    <Link to="/categories" onClick={handleMenuClick}>Categorías</Link>
+                                    <Link to="/login" onClick={handleMenuClick}>
+                                        <h3>Wellcome Back!</h3>
+                                        <p>Inicio de Sesión</p>
+                                    </Link>
                                 </li>
+                                <br />
                                 <li>
-                                    <Link to="/products" onClick={handleMenuClick}>Productos</Link>
+                                    <Link to="/register" onClick={handleMenuClick}>
+                                        <h3>Primer Ingreso?</h3>
+                                        <p>* Registro de Usuario *</p>
+                                    </Link>
                                 </li>
-                                <li>
-                                    <Link to="/cart-detail" onClick={handleMenuClick}>Detalle del Carrito *</Link>
-                                </li>
+
                             </ul>
                             <button
-                                className={`${styles.themeButton} ${darkMode ? "light-mode" : "dark-mode"}`}
+                                className={`${styles.themeButton} ${darkMode ? "dark-mode" : "light-mode"}`}
                                 onClick={handleToggleDarkMode}
                             >
                                 {darkMode ? "☀️" : "🌙"}
@@ -62,13 +90,9 @@ function NavBar() {
                         </div>,
                         document.body
                     )}
-                <div className={styles.rightContent}>
-                    <Total totalPrice={totalPrice} />
-                </div>
             </div>
         </>
     );
 }
 
 export default NavBar;
-
