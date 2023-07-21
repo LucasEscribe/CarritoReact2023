@@ -1,0 +1,20 @@
+.layoutContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.outletContainer {
+  margin-top: 160px;
+}
+
+@media (max-width: 768px) {
+  .layoutContainer {
+    position: static;
+  }
+
+  .outletContainer {
+    margin-top: 80px;
+  }
+}
