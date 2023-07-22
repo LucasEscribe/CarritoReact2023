@@ -19,7 +19,7 @@ function CrudComponent({ children }: CrudComponentProps) {
       const data = await response.json();
       return data;
     } catch (error) {
-      throw new Error("Failed to create product.");
+      throw new Error("Error al crear un producto.");
     }
   };
 
@@ -115,7 +115,8 @@ function CrudComponent({ children }: CrudComponentProps) {
     }
   };
 
-  // Valor de Contexto
+
+
   const crudContextValue = {
     createProduct,
     updateProduct,

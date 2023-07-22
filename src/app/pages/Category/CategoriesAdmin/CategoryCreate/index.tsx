@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from 'axios';
 import styles from "./styles.module.css";
 
 function CategoryCreate() {
@@ -15,13 +16,26 @@ function CategoryCreate() {
     });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    alert("Categoría creada exitosamente");
-    setFormData({
-      name: "",
-      image: "",
-    });
+    try {
+      const response = await axios.post(
+        'https://api.escuelajs.co/api/v1/categories/',
+        {
+          name: formData.name,
+          image: formData.image,
+        }
+      );
+      alert('Categoría creada exitosamente.');
+      console.log(response.data);
+      setFormData({
+        name: "",
+        image: "",
+      });
+    } catch (error) {
+      alert('Error al crear la categoría.')
+      console.error(error);
+    }
   };
 
   return (

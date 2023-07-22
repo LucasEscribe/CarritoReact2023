@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import axios from 'axios';
+
 
 function ProductCreate() {
     const [formData, setFormData] = useState({
@@ -22,16 +24,32 @@ function ProductCreate() {
         });
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        alert("Producto creado exitosamente");
-        setFormData({
-            title: "",
-            price: "",
-            description: "",
-            categoryId: "",
-            images: "",
-        });
+        try {
+            const response = await axios.post(
+                'https://api.escuelajs.co/api/v1/products/',
+                {
+                    title: formData.title,
+                    price: formData.price,
+                    description: formData.description,
+                    categoryId: formData.categoryId,
+                    images: [formData.images],
+                }
+            );
+            alert('Producto creado exitosamente.');
+            console.log(response.data);
+            setFormData({
+                title: '',
+                price: '',
+                description: '',
+                categoryId: '',
+                images: '',
+            });
+        } catch (error) {
+            alert('Error al crear el producto.')
+            console.error(error);
+        }
     };
 
     useEffect(() => {
@@ -98,8 +116,7 @@ function ProductCreate() {
                 <label>
                     Selecciona Imagen:{" "}
                     <input
-                        type="file"
-                        accept="image/*"
+                        type="text"
                         name="images"
                         value={formData.images}
                         onChange={handleInputChange}

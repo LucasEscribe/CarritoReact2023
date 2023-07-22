@@ -2,7 +2,7 @@ import { useContext, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { Link } from 'react-router-dom';
 import { ThemeContext } from "../../../contexts/ThemeContext";
-import { AuthContext } from "../../../contexts/AuthContext"; // Import the AuthContext
+import { AuthContext } from "../../../contexts/AuthContext";
 import { useCart } from '../../../contexts/CartContext';
 import Total from "../../../pages/Cart/CartTotal";
 import styles from './styles.module.css';
@@ -12,19 +12,16 @@ function NavBar() {
     const [menuOpen, setMenuOpen] = useState(false);
     const menuRef = useRef<HTMLDivElement>(null);
 
-    // menú click
     const handleMenuClick = () => {
         setMenuOpen(!menuOpen);
     };
 
-    //modo oscuro:
     const { darkMode, toggleDarkMode } = useContext(ThemeContext);
 
     const handleToggleDarkMode = () => {
         toggleDarkMode();
         document.body.classList.toggle("dark-mode");
     };
-    //console.log(darkMode)
 
     const { totalPrice } = useCart();
 
@@ -39,7 +36,7 @@ function NavBar() {
                     </button>
                 </div>
                 <div className={styles.rightContent}>
-                    {!user ? ( // Show login and register buttons when user is not logged in
+                    {!user ? (
                         <>
                             <Link to="/login">
                                 <button className={`${styles.loginButton} ${styles.transparentButton}`}>
@@ -53,7 +50,6 @@ function NavBar() {
                             </Link>
                         </>
                     ) : user.role === "admin" || user.role === "customer" ? (
-                        // Show the cart details when the user is either admin or customer
                         <Link to="/cart-detail" className={`${styles.totalButton} ${styles.transparentButton}`}>
                             <Total totalPrice={totalPrice} />
                         </Link>
