@@ -1,6 +1,6 @@
 import { useContext, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { ThemeContext } from "../../../contexts/ThemeContext";
 import { AuthContext } from "../../../contexts/AuthContext";
 import { useCart } from '../../../contexts/CartContext';
@@ -26,6 +26,14 @@ function NavBar() {
     const { totalPrice } = useCart();
 
     const { user } = useContext(AuthContext);
+
+    const { signout } = useContext(AuthContext);
+
+    const handleSignout = () => {
+        signout(() => {
+            <Navigate to="/" />
+        });
+    };
 
     return (
         <>
@@ -88,18 +96,8 @@ function NavBar() {
                                                 </Link>
                                             </li>
                                             <li>
-                                                <Link to="/products/<id>" onClick={handleMenuClick}>
-                                                    Editar Producto
-                                                </Link>
-                                            </li>
-                                            <li>
                                                 <Link to="/categories/create" onClick={handleMenuClick}>
                                                     Nueva Categoría
-                                                </Link>
-                                            </li>
-                                            <li>
-                                                <Link to="/categories/<id>" onClick={handleMenuClick}>
-                                                    Editar Categoría
                                                 </Link>
                                             </li>
                                             <br />
@@ -119,9 +117,11 @@ function NavBar() {
                                         </>
                                     )}
                                     <li>
-                                        <Link to="/logout" onClick={handleMenuClick}>
-                                            Cerrar Sesión
-                                        </Link>
+                                        <li>
+                                            <button className={styles.logoutButton} onClick={handleSignout}>
+                                                Cerrar Sesión
+                                            </button>
+                                        </li>
                                     </li>
                                 </>
                             ) : (

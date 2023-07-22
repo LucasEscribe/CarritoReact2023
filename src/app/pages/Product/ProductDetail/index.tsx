@@ -113,7 +113,7 @@ function ProductDetail() {
                 to={`/products/edit/${product.id}`}
                 className={styles.editButton}
               >
-                Editar
+                <button className={styles.categoryButton}>Editar</button>
               </Link>
             )}
           </div>

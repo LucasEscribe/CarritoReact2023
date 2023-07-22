@@ -84,10 +84,28 @@
   margin-top: 10px;
 }
 
+.logoutButton {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  background-color: #828282;
+  color: #333;
+}
+
+.logoutButton li {
+
+  margin-bottom: 5px;
+}
+
+.logoutButton li a {
+  color: #1e1e1e;
+  text-decoration: none;
+}
+
 .loginButton,
 .registerButton {
-  background-color: #33A1DE;
-  color: #FFFFFF;
+  background-color: #33a1de;
+  color: #ffffff;
   font-size: 11px;
   padding: 8px 16px;
   margin-bottom: 8px;
@@ -99,7 +117,7 @@
 
 .loginButton:hover,
 .registerButton:hover {
-  background-color: #1C77C3;
+  background-color: #1c77c3;
 }
 
 .rightContent {
