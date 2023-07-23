@@ -35,6 +35,22 @@ function NavBar() {
         });
     };
 
+    useEffect(() => {
+        const handleOutsideClick = (event: MouseEvent) => {
+            if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+                setMenuOpen(false);
+            }
+        };
+
+        if (menuOpen) {
+            document.addEventListener("mousedown", handleOutsideClick);
+        }
+
+        return () => {
+            document.removeEventListener("mousedown", handleOutsideClick);
+        };
+    }, [menuOpen]);
+
     return (
         <>
             <div className={styles.navbarContainer}>
@@ -66,7 +82,7 @@ function NavBar() {
             </div>
             {menuOpen &&
                 createPortal(
-                    <div className={styles.menu}>
+                    <div className={styles.menu} ref={menuRef}>
                         <ul className={styles.menuList}>
                             <li>
                                 <Link to="/" onClick={handleMenuClick}>
