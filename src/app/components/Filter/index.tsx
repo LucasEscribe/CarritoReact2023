@@ -51,6 +51,14 @@ function Filter({ products, setFilteredProducts }: FilterProps) {
         setFilteredProducts(products);
     };
 
+//       \\\
+//       (o>
+//      \\_//
+//       /\\
+//       \//
+//        || 
+//       ===
+
     return (
         <div className={styles.filterContainer}>
             <h2>Filtrar Productos</h2>

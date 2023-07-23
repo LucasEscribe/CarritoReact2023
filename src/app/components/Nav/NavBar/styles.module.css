@@ -80,8 +80,23 @@
   text-decoration: none;
 }
 
+.buttonsBelow{
+  display: flex;
+}
+
 .themeButton {
   margin-top: 10px;
+  margin: 15px;
+}
+
+.searchButton {
+  margin-top: 10px;
+  margin-left: 10px;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-size: 20px;
 }
 
 .logoutButton {
@@ -173,12 +188,10 @@
     font-size: 12px;
   }
 
-  .filterMenu {
-    width: 80vw;
-    top: 100px;
-    right: calc(50% - 40vw);
+  .buttonsBelow{
+    display: grid;
   }
-
+    
   .rightContent {
     display: flex;
     margin-top: 0;

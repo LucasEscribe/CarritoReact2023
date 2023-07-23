@@ -69,6 +69,13 @@ function ProductComponent({ categoryID }: ProductComponentProps) {
     window.scrollTo(0, 0);
   }, [offset]);
 
+// // //  ___       
+//     __/ ◕\       
+//    /     /\\_     
+//    \_/ /    \\    
+//        \__   \\   
+//           \___\\  
+
   return (
     <main>
       {categoryID ? (

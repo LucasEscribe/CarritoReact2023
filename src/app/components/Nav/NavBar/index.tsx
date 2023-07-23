@@ -7,13 +7,26 @@ import { useCart } from '../../../contexts/CartContext';
 import Total from "../../../pages/Cart/CartTotal";
 import styles from './styles.module.css';
 import React from 'react';
+import Filter from '../../../components/Filter';
+import { Product } from '../../../types/product';
+import products from '../../../querys/products';
+
+type FilterProps = {
+    products: Product[];
+    setFilteredProducts: React.Dispatch<React.SetStateAction<Product[]>>;
+};
 
 function NavBar() {
     const [menuOpen, setMenuOpen] = useState(false);
+    const [searchOpen, setSearchOpen] = useState(false);
     const menuRef = useRef<HTMLDivElement>(null);
 
     const handleMenuClick = () => {
         setMenuOpen(!menuOpen);
+    };
+
+    const handleSearchClick = () => {
+        setSearchOpen(!searchOpen);
     };
 
     const { darkMode, toggleDarkMode } = useContext(ThemeContext);
@@ -22,6 +35,8 @@ function NavBar() {
         toggleDarkMode();
         document.body.classList.toggle("dark-mode");
     };
+
+    const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
 
     const { totalPrice } = useCart();
 
@@ -50,6 +65,11 @@ function NavBar() {
             document.removeEventListener("mousedown", handleOutsideClick);
         };
     }, [menuOpen]);
+
+
+    //   **     **  \\
+    ///      0       \\\
+    ///// ------     \\\\\
 
     return (
         <>
@@ -80,6 +100,7 @@ function NavBar() {
                     ) : null}
                 </div>
             </div>
+
             {menuOpen &&
                 createPortal(
                     <div className={styles.menu} ref={menuRef}>
@@ -158,15 +179,29 @@ function NavBar() {
                                 </>
                             )}
                         </ul>
-                        <button
-                            className={`${styles.themeButton} ${darkMode ? "dark-mode" : "light-mode"}`}
-                            onClick={handleToggleDarkMode}
-                        >
-                            {darkMode ? "☀️" : "🌙"}
-                        </button>
+                        <div className={`${styles.buttonsBelow}`}>
+                            <button
+                                className={`${styles.themeButton} ${darkMode ? "dark-mode" : "light-mode"}`}
+                                onClick={handleToggleDarkMode}
+                            >
+                                {darkMode ? "☀️" : "🌙"}
+                            </button>
+                            <button
+                                className={`${styles.themeButton}`}
+                                onClick={handleSearchClick}
+                            >
+                                🔍
+                            </button>
+                        </div>
                     </div>,
                     document.body
                 )}
+
+            {searchOpen && (
+                <div className={styles.filterMenu}>
+                    <Filter products={filteredProducts} setFilteredProducts={setFilteredProducts} />
+                </div>
+            )}
         </>
     );
 }
