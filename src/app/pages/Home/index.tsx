@@ -18,17 +18,6 @@ function Home() {
   );
 }
 
-/*
-     \      /
-    -- o  o --
-   /   \__/   \
-  /  \     /  \
- |      \/      |
- |             |
-  \__      __/
-     \    /
-      |__|
-*/
 
 
 export default Home;

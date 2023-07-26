@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useParams, useLocation } from "react-router-dom";
+import { useQuery, useMutation, useQueryClient } from 'react-query';
 import axios from 'axios';
 
 function CategoryEdit() {
     const { id } = useParams<{ id: string }>();
     const location = useLocation();
+
+    const queryClient = useQueryClient();
 
     const [category, setCategory] = useState({
         name: "",
@@ -19,54 +22,84 @@ function CategoryEdit() {
         });
     };
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        try {
-            const response = await axios.put(
-                `https://api.escuelajs.co/api/v1/categories/${id}`,
-                {
-                    name: category.name,
-                    image: category.image,
-                }
-            );
-            alert('Categoría actualizada exitosamente.');
-            console.log(response.data);
-        } catch (error) {
-            alert('Error al actualizar la categoría.')
-            console.error(error);
-        }
+    const updateCategory = async () => {
+        const response = await axios.put(
+            `https://api.escuelajs.co/api/v1/categories/${id}`,
+            {
+                name: category.name,
+                image: category.image,
+            }
+        );
+        return response.data;
     };
 
-    const handleDelete = async () => {
-        try {
-            const response = await axios.delete(
+    const deleteCategory = async () => {
+        const response = await axios.delete(
+            `https://api.escuelajs.co/api/v1/categories/${id}`
+        );
+        return response.data;
+    };
+
+    const mutationUpdate = useMutation(updateCategory, {
+        onSuccess: (data) => {
+            alert('Categoría actualizada exitosamente.');
+            console.log(data);
+        },
+        onError: (error) => {
+            alert('Error al actualizar la categoría.');
+            console.error(error);
+        },
+        onSettled: () => {
+            queryClient.invalidateQueries(['categories', id]);
+        },
+    });
+
+    const mutationDelete = useMutation(deleteCategory, {
+        onSuccess: (data) => {
+            alert('Categoría borrada exitosamente.');
+            console.log(data);
+            window.location.href = '/categories';
+        },
+        onError: (error) => {
+            console.error(error);
+        },
+        onSettled: () => {
+        },
+    });
+
+    const { data, isLoading, isError } = useQuery('category', async () => {
+        if (location.state && location.state.category) {
+            return location.state.category;
+        } else {
+            const response = await axios.get(
                 `https://api.escuelajs.co/api/v1/categories/${id}`
             );
-            alert('Categoría borrada exitosamente.');
-            console.log(response.data);
-            window.location.href = '/categories';
-        } catch (error) {
-            console.error(error);
+            return response.data;
         }
+    });
+
+    React.useEffect(() => {
+        if (data) {
+            setCategory(data);
+        }
+    }, [data]);
+
+    if (isLoading) {
+        return <div>Cargando...</div>;
+    }
+
+    if (isError) {
+        return <div>Error en la data de la categoría.</div>;
+    }
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        mutationUpdate.mutate();
     };
 
-    useEffect(() => {
-        if (location.state && location.state.category) {
-            setCategory(location.state.category);
-        } else {
-            const fetchCategory = async () => {
-                try {
-                    const response = await axios.get(
-                        `https://api.escuelajs.co/api/v1/categories/${id}`
-                    );
-                    setCategory(response.data);
-                } catch (error) {
-                    console.error("Error fetching category:", error);
-                }
-            };
-            fetchCategory();
-        }
-    }, [id, location.state]);
+    const handleDelete = () => {
+        mutationDelete.mutate();
+    };
 
     return (
         <div className="container">

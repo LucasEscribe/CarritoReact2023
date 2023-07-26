@@ -26,7 +26,8 @@ function Login() {
         });
         const profileData: UserLoginDataResponse = {
           access_token: token,
-          role: profileResponse.data.role
+          role: profileResponse.data.role,
+          name: ""
         };
         auth.signin(profileData, () => {
           if (profileData.role === 'admin') {

@@ -1,6 +1,18 @@
 import React, { useState } from "react";
-import axios from 'axios';
+import { useMutation } from 'react-query';
 import styles from "./styles.module.css";
+import axios from "axios";
+
+const createCategory = async (formData) => {
+  const response = await axios.post(
+    'https://api.escuelajs.co/api/v1/categories/',
+    {
+      name: formData.name,
+      image: formData.image,
+    }
+  );
+  return response.data;
+};
 
 function CategoryCreate() {
   const [formData, setFormData] = useState({
@@ -8,7 +20,7 @@ function CategoryCreate() {
     image: "",
   });
 
-  const handleInputChange = (event) => {
+  const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData({
       ...formData,
@@ -16,26 +28,24 @@ function CategoryCreate() {
     });
   };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    try {
-      const response = await axios.post(
-        'https://api.escuelajs.co/api/v1/categories/',
-        {
-          name: formData.name,
-          image: formData.image,
-        }
-      );
+  const mutation = useMutation(createCategory, {
+    onSuccess: (data) => {
       alert('Categoría creada exitosamente.');
-      console.log(response.data);
+      console.log(data);
       setFormData({
         name: "",
         image: "",
       });
-    } catch (error) {
+    },
+    onError: (error) => {
       alert('Error al crear la categoría.')
       console.error(error);
-    }
+    },
+  });
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    mutation.mutate(formData);
   };
 
   return (
@@ -48,7 +58,7 @@ function CategoryCreate() {
             type="text"
             name="name"
             value={formData.name}
-            onChange={handleInputChange}
+            onChange={handleChange}
           />
         </label>
         <label>
@@ -57,7 +67,7 @@ function CategoryCreate() {
             type="text"
             name="image"
             value={formData.image}
-            onChange={handleInputChange}
+            onChange={handleChange}
           />
         </label>
         <button type="submit">Crear Categoría</button>

@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import { useMutation, useQueryClient } from 'react-query';
 import axios from 'axios';
-
 
 function ProductCreate() {
     const [formData, setFormData] = useState({
@@ -11,10 +11,11 @@ function ProductCreate() {
         images: "",
     });
 
-
     const [categories, setCategories] = useState<{ id: number; name: string }[]>(
         []
     );
+
+    const queryClient = useQueryClient();
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
@@ -24,21 +25,24 @@ function ProductCreate() {
         });
     };
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        try {
-            const response = await axios.post(
-                'https://api.escuelajs.co/api/v1/products/',
-                {
-                    title: formData.title,
-                    price: formData.price,
-                    description: formData.description,
-                    categoryId: formData.categoryId,
-                    images: [formData.images],
-                }
-            );
+    const createProduct = async () => {
+        const response = await axios.post(
+            'https://api.escuelajs.co/api/v1/products/',
+            {
+                title: formData.title,
+                price: formData.price,
+                description: formData.description,
+                categoryId: formData.categoryId,
+                images: [formData.images],
+            }
+        );
+        return response.data;
+    };
+
+    const mutationCreate = useMutation(createProduct, {
+        onSuccess: (data) => {
             alert('Producto creado exitosamente.');
-            console.log(response.data);
+            console.log(data);
             setFormData({
                 title: '',
                 price: '',
@@ -46,13 +50,22 @@ function ProductCreate() {
                 categoryId: '',
                 images: '',
             });
-        } catch (error) {
-            alert('Error al crear el producto.')
+        },
+        onError: (error) => {
+            alert('Error al crear el producto.');
             console.error(error);
-        }
+        },
+        onSettled: () => {
+            queryClient.invalidateQueries('products');
+        },
+    });
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        mutationCreate.mutate();
     };
 
-    useEffect(() => {
+    React.useEffect(() => {
         const fetchCategories = async () => {
             try {
                 const response = await fetch(

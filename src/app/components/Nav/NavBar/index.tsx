@@ -4,53 +4,25 @@ import { Link, Navigate } from 'react-router-dom';
 import { ThemeContext } from "../../../contexts/ThemeContext";
 import { AuthContext } from "../../../contexts/AuthContext";
 import { useCart } from '../../../contexts/CartContext';
+import MenuModal from '../MenuModal';
 import Total from "../../../pages/Cart/CartTotal";
 import styles from './styles.module.css';
 import React from 'react';
 import Filter from '../../../components/Filter';
 import { Product } from '../../../types/product';
-import products from '../../../querys/products';
-
-type FilterProps = {
-    products: Product[];
-    setFilteredProducts: React.Dispatch<React.SetStateAction<Product[]>>;
-};
 
 function NavBar() {
     const [menuOpen, setMenuOpen] = useState(false);
     const [searchOpen, setSearchOpen] = useState(false);
     const menuRef = useRef<HTMLDivElement>(null);
 
-    const handleMenuClick = () => {
-        setMenuOpen(!menuOpen);
-    };
-
     const handleSearchClick = () => {
         setSearchOpen(!searchOpen);
     };
 
-    const { darkMode, toggleDarkMode } = useContext(ThemeContext);
+    const handleMenuClick = () => {
+        setMenuOpen(!menuOpen);
 
-    const handleToggleDarkMode = () => {
-        toggleDarkMode();
-        document.body.classList.toggle("dark-mode");
-    };
-
-    const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
-
-    const { totalPrice } = useCart();
-
-    const { user } = useContext(AuthContext);
-
-    const { signout } = useContext(AuthContext);
-
-    const handleSignout = () => {
-        signout(() => {
-            <Navigate to="/" />
-        });
-    };
-
-    useEffect(() => {
         const handleOutsideClick = (event: MouseEvent) => {
             if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
                 setMenuOpen(false);
@@ -60,16 +32,14 @@ function NavBar() {
         if (menuOpen) {
             document.addEventListener("mousedown", handleOutsideClick);
         }
+    };
 
-        return () => {
-            document.removeEventListener("mousedown", handleOutsideClick);
-        };
-    }, [menuOpen]);
+    const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
 
+    const { totalPrice } = useCart();
 
-    //   **     **  \\
-    ///      0       \\\
-    ///// ------     \\\\\
+    const { user } = useContext(AuthContext);
+
 
     return (
         <>
@@ -101,107 +71,18 @@ function NavBar() {
                 </div>
             </div>
 
-            {menuOpen &&
-                createPortal(
-                    <div className={styles.menu} ref={menuRef}>
-                        <ul className={styles.menuList}>
-                            <li>
-                                <Link to="/" onClick={handleMenuClick}>
-                                    <h2>Inicio</h2>
-                                </Link>
-                            </li>
-                            <br />
-                            <li>
-                                <Link to="/categories" onClick={handleMenuClick}>
-                                    Categorías
-                                </Link>
-                            </li>
-                            <li>
-                                <Link to="/products" onClick={handleMenuClick}>
-                                    Productos
-                                </Link>
-                            </li>
-
-                            <br />
-                            {user ? (
-                                <>
-                                    {user.role === "admin" ? (
-                                        <>
-                                            <li>
-                                                <Link to="/products/create" onClick={handleMenuClick}>
-                                                    Nuevo Producto
-                                                </Link>
-                                            </li>
-                                            <li>
-                                                <Link to="/categories/create" onClick={handleMenuClick}>
-                                                    Nueva Categoría
-                                                </Link>
-                                            </li>
-                                            <br />
-                                            <li>
-                                                <Link to="/cart-detail" onClick={handleMenuClick}>
-                                                    Detalle del Carrito
-                                                </Link>
-                                            </li>
-                                        </>
-                                    ) : (
-                                        <>
-                                            <li>
-                                                <Link to="/cart-detail" onClick={handleMenuClick}>
-                                                    Detalle del Carrito
-                                                </Link>
-                                            </li>
-                                        </>
-                                    )}
-                                    <li>
-                                        <li>
-                                            <button className={styles.logoutButton} onClick={handleSignout}>
-                                                Cerrar Sesión
-                                            </button>
-                                        </li>
-                                    </li>
-                                </>
-                            ) : (
-                                <>
-                                    <li>
-                                        <Link to="/login" onClick={handleMenuClick}>
-                                            <h3>Wellcome Back!</h3>
-                                            <p>Inicio de Sesión</p>
-                                        </Link>
-                                    </li>
-                                    <br />
-                                    <li>
-                                        <Link to="/register" onClick={handleMenuClick}>
-                                            <h3>Primer Ingreso?</h3>
-                                            <p>Registro de Usuario</p>
-                                        </Link>
-                                    </li>
-                                </>
-                            )}
-                        </ul>
-                        <div className={`${styles.buttonsBelow}`}>
-                            <button
-                                className={`${styles.themeButton} ${darkMode ? "dark-mode" : "light-mode"}`}
-                                onClick={handleToggleDarkMode}
-                            >
-                                {darkMode ? "☀️" : "🌙"}
-                            </button>
-                            <button
-                                className={`${styles.themeButton}`}
-                                onClick={handleSearchClick}
-                            >
-                                🔍
-                            </button>
-                        </div>
-                    </div>,
-                    document.body
-                )}
-
             {searchOpen && (
                 <div className={styles.filterMenu}>
                     <Filter products={filteredProducts} setFilteredProducts={setFilteredProducts} />
                 </div>
+
             )}
+            <MenuModal
+                menuOpen={menuOpen}
+                handleMenuClick={handleMenuClick}
+                handleSearchClick={handleSearchClick}
+                filteredProducts={filteredProducts}
+            />
         </>
     );
 }
