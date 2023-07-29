@@ -26,7 +26,8 @@ function Login() {
         });
         const profileData: UserLoginDataResponse = {
           access_token: token,
-          role: profileResponse.data.role
+          role: profileResponse.data.role,
+          name: ""
         };
         auth.signin(profileData, () => {
           if (profileData.role === 'admin') {
@@ -54,8 +55,7 @@ function Login() {
 
   return (
     <div className={styles.container}>
-      <p>Debe estar loggeado para ver la página de {from}</p>
-      <p>Debe estar loggeado para ver la página de edición.</p>
+      <p>Ingrese su usuario y contraseña:</p>
       <form className={styles.form} onSubmit={handleSubmit}>
         <label>
           Email: <input name="email" type="text" />

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactNode } from "react";
 
 export interface UserLoginData{
     email: string;
@@ -6,6 +6,7 @@ export interface UserLoginData{
 }
 
 export interface UserLoginDataResponse{
+    name: string;
     access_token: string;
     role: string;
 }

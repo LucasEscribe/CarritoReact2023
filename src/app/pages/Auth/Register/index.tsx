@@ -26,7 +26,8 @@ function Register() {
       onSuccess: (data) => {
         const userData: UserLoginDataResponse = {
           access_token: data.data.access_token,
-          role: isAdmin ? "admin" : "customer"
+          role: isAdmin ? "admin" : "customer",
+          name: ""
         };
         auth.signin(userData, () => {
           if (isAdmin) {
@@ -59,8 +60,8 @@ function Register() {
 
   return (
     <div className={styles.container}>
-      <p>Cree un usuario Administrador para ver la página de edición.</p>
-      <p>Cree un usuario Cliente para ver el detalle de su carrito.</p>
+      <p className={styles.text}>Cree un usuario Cliente para ver el detalle de su carrito.</p>
+      <p className={styles.text}>Cree un usuario Administrador para modificar o crear productos y categorías.</p>
       <form className={styles.form} onSubmit={handleSubmit}>
         <label>
           Email: <input name="email" type="text" />
@@ -68,13 +69,14 @@ function Register() {
         <label>
           Password: <input name="password" type="password" />
         </label>
+        <br />
         <label>
           <input
             type="checkbox"
             checked={isAdmin}
             onChange={handleAdminCheckboxChange}
           />
-          Crear usuario administrador
+          <p className={styles.text}>Marque para crear un usuario administrador</p>
         </label>
         <button type="submit">
           {registerMutation.isLoading ? 'Cargando...' : 'Registrar'}

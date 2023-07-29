@@ -49,12 +49,6 @@ function ProductCard(props: ProductProps & HandleProps) {
           <h3 className={styles.description}>{props.description}</h3>
           <p>{formattedPrice}</p>
         </div>
-        {/* <ul>
-          <li>Categoría: {props.category.name}</li>
-          <li>
-            <img src={props.category.image} width={64} height={64} alt={props.category.name} />
-          </li>
-        </ul> */}
         <div className={styles.handler_subtotal}>
           <button
             className={styles.remove}

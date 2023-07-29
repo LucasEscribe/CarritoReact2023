@@ -8,6 +8,8 @@ import {
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { CartProvider } from "./contexts/CartContext";
+// import { FilterProvider } from "./contexts/FilterContext";
+
 
 import Layout from "./components/Layout";
 import Home from "./pages/Home";
@@ -23,6 +25,8 @@ import RequireAuth from "./components/Auth/RequireAuth";
 import Login from "./pages/Auth/Login";
 import Register from "./pages/Auth/Register";
 import CartDetail from "./pages/Cart/CartDetail";
+import CategoryCreate from "./pages/Category/CategoriesAdmin/CategoryCreate";
+import CategoryEdit from "./pages/Category/CategoriesAdmin/CategoryEdit";
 
 const queryClient = new QueryClient();
 
@@ -33,23 +37,28 @@ function App() {
         <CartProvider>
           <BrowserRouter>
             <AuthProvider>
-              <Routes>
-                <Route element={<Layout />}>
-                  <Route path="/" element={<Home />} />
-                  <Route path="/products" element={<Products />} />
-                  <Route path="/products/:productID" element={<ProductDetail />} />
-                  <Route path="/categories" element={<Categories />} />
-                  <Route path="/categories/:categoryID/products" element={<ProductsCategory />} />
-                  <Route path="/login" element={<Login />} />
-                  <Route path="/register" element={<Register />} />
+              {/* <FilterProvider> */}
+                <Routes>
+                  <Route element={<Layout />}>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/products" element={<Products />} />
+                    <Route path="/products/:productID" element={<ProductDetail />} />
+                    <Route path="/categories" element={<Categories />} />
+                    <Route path="/categories/:categoryID/products" element={<ProductsCategory />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/register" element={<Register />} />
 
-                  <Route path="/products/create" element={<RequireAuth adminOnly><React.Fragment><ProductCreate /></React.Fragment></RequireAuth>} />
-                  <Route path="/products/edit/:id" element={<RequireAuth adminOnly><React.Fragment><ProductEdit /></React.Fragment></RequireAuth>} />
-                  <Route path="/cart-detail" element={<RequireAuth customerOnly><React.Fragment><CartDetail /></React.Fragment></RequireAuth>}></Route>
+                    <Route path="/products/create" element={<RequireAuth adminOnly><React.Fragment><ProductCreate /></React.Fragment></RequireAuth>} />
+                    <Route path="/products/edit/:id" element={<RequireAuth adminOnly><React.Fragment><ProductEdit /></React.Fragment></RequireAuth>} />
+                    <Route path="/categories/create" element={<RequireAuth adminOnly><CategoryCreate /></RequireAuth>} />
+                    <Route path="/categories/edit/:id" element={<RequireAuth adminOnly><CategoryEdit /></RequireAuth>} />
 
-                </Route>
-                <Route path="*" element={<NotFound />} />
-              </Routes>
+                    <Route path="/cart-detail" element={<RequireAuth customerOnly><React.Fragment><CartDetail /></React.Fragment></RequireAuth>}></Route>
+
+                  </Route>
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              {/* </FilterProvider> */}
             </AuthProvider>
           </BrowserRouter>
         </CartProvider>
@@ -58,4 +67,5 @@ function App() {
   );
 }
 
+  
 export default App;

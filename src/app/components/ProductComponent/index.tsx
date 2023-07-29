@@ -65,6 +65,11 @@ function ProductComponent({ categoryID }: ProductComponentProps) {
     }
   };
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [offset]);
+
+
   return (
     <main>
       {categoryID ? (

@@ -1,31 +1,45 @@
 import { useContext, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { ThemeContext } from "../../../contexts/ThemeContext";
+import { AuthContext } from "../../../contexts/AuthContext";
 import { useCart } from '../../../contexts/CartContext';
+import MenuModal from '../MenuModal';
 import Total from "../../../pages/Cart/CartTotal";
 import styles from './styles.module.css';
 import React from 'react';
+import Filter from '../../../components/Filter';
+import { Product } from '../../../types/product';
 
 function NavBar() {
     const [menuOpen, setMenuOpen] = useState(false);
+    const [searchOpen, setSearchOpen] = useState(false);
     const menuRef = useRef<HTMLDivElement>(null);
 
-    // menú click
+    const handleSearchClick = () => {
+        setSearchOpen(!searchOpen);
+    };
+
     const handleMenuClick = () => {
         setMenuOpen(!menuOpen);
+
+        const handleOutsideClick = (event: MouseEvent) => {
+            if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+                setMenuOpen(false);
+            }
+        };
+
+        if (menuOpen) {
+            document.addEventListener("mousedown", handleOutsideClick);
+        }
     };
 
-    //modo oscuro:
-    const { darkMode, toggleDarkMode } = useContext(ThemeContext);
-
-    const handleToggleDarkMode = () => {
-        toggleDarkMode();
-        document.body.classList.toggle("dark-mode");
-    };
-    //console.log(darkMode)
+    const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
 
     const { totalPrice } = useCart();
+
+    const { user } = useContext(AuthContext);
+
 
     return (
         <>
@@ -36,61 +50,39 @@ function NavBar() {
                     </button>
                 </div>
                 <div className={styles.rightContent}>
-                    <Link to="/cart-detail" className={`${styles.totalButton} ${styles.transparentButton}`}>
-                        <Total totalPrice={totalPrice} />
-                    </Link>
+                    {!user ? (
+                        <>
+                            <Link to="/login">
+                                <button className={`${styles.loginButton} ${styles.transparentButton}`}>
+                                    Iniciar Sesión
+                                </button>
+                            </Link>
+                            <Link to="/register">
+                                <button className={`${styles.registerButton} ${styles.transparentButton}`}>
+                                    Registrarse
+                                </button>
+                            </Link>
+                        </>
+                    ) : user.role === "admin" || user.role === "customer" ? (
+                        <Link to="/cart-detail" className={`${styles.totalButton} ${styles.transparentButton}`}>
+                            <Total totalPrice={totalPrice} />
+                        </Link>
+                    ) : null}
                 </div>
-                {menuOpen &&
-                    createPortal(
-                        <div className={styles.menu}>
-                            <ul className={styles.menuList}>
-                                <li>
-                                    <Link to="/" onClick={handleMenuClick}>
-                                        <h2>Inicio</h2>
-                                    </Link>
-                                </li>
-                                <br />
-                                <li>
-                                    <Link to="/categories" onClick={handleMenuClick}>
-                                        Categorías
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link to="/products" onClick={handleMenuClick}>
-                                        Productos
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link to="/cart-detail" onClick={handleMenuClick}>
-                                        * Detalle del Carrito *
-                                    </Link>
-                                </li>
-                                <br />
-                                <li>
-                                    <Link to="/login" onClick={handleMenuClick}>
-                                        <h3>Wellcome Back!</h3>
-                                        <p>Inicio de Sesión</p>
-                                    </Link>
-                                </li>
-                                <br />
-                                <li>
-                                    <Link to="/register" onClick={handleMenuClick}>
-                                        <h3>Primer Ingreso?</h3>
-                                        <p>* Registro de Usuario *</p>
-                                    </Link>
-                                </li>
-
-                            </ul>
-                            <button
-                                className={`${styles.themeButton} ${darkMode ? "dark-mode" : "light-mode"}`}
-                                onClick={handleToggleDarkMode}
-                            >
-                                {darkMode ? "☀️" : "🌙"}
-                            </button>
-                        </div>,
-                        document.body
-                    )}
             </div>
+
+            {searchOpen && (
+                <div className={styles.filterMenu}>
+                    <Filter products={filteredProducts} setFilteredProducts={setFilteredProducts} />
+                </div>
+
+            )}
+            <MenuModal
+                menuOpen={menuOpen}
+                handleMenuClick={handleMenuClick}
+                handleSearchClick={handleSearchClick}
+                filteredProducts={filteredProducts}
+            />
         </>
     );
 }

@@ -1,0 +1,79 @@
+import React, { useState } from "react";
+import { useMutation } from 'react-query';
+import styles from "./styles.module.css";
+import axios from "axios";
+
+const createCategory = async (formData) => {
+  const response = await axios.post(
+    'https://api.escuelajs.co/api/v1/categories/',
+    {
+      name: formData.name,
+      image: formData.image,
+    }
+  );
+  return response.data;
+};
+
+function CategoryCreate() {
+  const [formData, setFormData] = useState({
+    name: "",
+    image: "",
+  });
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const mutation = useMutation(createCategory, {
+    onSuccess: (data) => {
+      alert('Categoría creada exitosamente.');
+      console.log(data);
+      setFormData({
+        name: "",
+        image: "",
+      });
+    },
+    onError: (error) => {
+      alert('Error al crear la categoría.')
+      console.error(error);
+    },
+  });
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    mutation.mutate(formData);
+  };
+
+  return (
+    <div className={styles.container}>
+      <h1>Crear Categoría</h1>
+      <form onSubmit={handleSubmit}>
+        <label>
+          Nombre de la Categoría:{" "}
+          <input
+            type="text"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+          URL de la Imagen:{" "}
+          <input
+            type="text"
+            name="image"
+            value={formData.image}
+            onChange={handleChange}
+          />
+        </label>
+        <button type="submit">Crear Categoría</button>
+      </form>
+    </div>
+  );
+}
+
+export default CategoryCreate;

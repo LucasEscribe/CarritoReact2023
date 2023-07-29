@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useQuery } from "react-query";
 import { Product } from "../../../types/product";
 import styles from "./styles.module.css";
 import { useCart } from "../../../contexts/CartContext";
+import { AuthContext } from "../../../contexts/AuthContext";
 
 const fetchProduct = async (productID: string) => {
   const res = await fetch(
@@ -24,6 +25,7 @@ function ProductDetail() {
     ["product", productID],
     () => fetchProduct(productID || "")
   );
+  const { user } = useContext(AuthContext);
 
   const { updateTotalPrice } = useCart();
 
@@ -104,10 +106,16 @@ function ProductDetail() {
           </div>
           <div className={styles.buttonContainer}>
             <Link to={`/cart-detail`}>
-              <button className={styles.categoryButton}>
-                Ver Carrito
-              </button>
+              <button className={styles.categoryButton}>Ver Carrito</button>
             </Link>
+            {user?.role === "admin" && (
+              <Link
+                to={`/products/edit/${product.id}`}
+                className={styles.editButton}
+              >
+                <button className={styles.categoryButton}>Editar</button>
+              </Link>
+            )}
           </div>
         </div>
       </div>

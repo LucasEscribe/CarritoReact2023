@@ -92,10 +92,10 @@ function Filter({ products, setFilteredProducts }: FilterProps) {
             </div>
             <div className={styles.buttonGroup}>
                 <button className={styles.button} onClick={handleFilter}>
-                    Filtrar
+                    Buscar
                 </button>
                 <button className={styles.button} onClick={handleReset}>
-                    Reset
+                    Limpiar
                 </button>
             </div>
         </div>
