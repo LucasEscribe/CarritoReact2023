@@ -5,6 +5,7 @@ import { Product } from "../../../types/product";
 import styles from "./styles.module.css";
 import { useCart } from "../../../contexts/CartContext";
 import { AuthContext } from "../../../contexts/AuthContext";
+import ProductCard from "../../../components/ProductCard";
 
 const fetchProduct = async (productID: string) => {
   const res = await fetch(
@@ -73,53 +74,30 @@ function ProductDetail() {
   return (
     <>
       <div className={styles.productContainer}>
-        <div className={styles.imageContainer}>
-          <img
-            src={product.images}
-            alt={product.title}
-            className={styles.productImage}
-          />
-        </div>
-        <div className={styles.infoContainer}>
-          <div className={styles.title}>
-            <h2>{product.title}</h2>
-          </div>
-          <div className={styles.description}>
-            <p>{product.description}</p>
-          </div>
-          <div className={styles.price}>
-            <p>Precio: <span className={styles.highlight}>{formattedPrice}</span></p>
-          </div>
-          <div className={styles.handlerSubtotal}>
-            <div className={styles.handler}>
-              <button className={styles.remove} onClick={handleRemoveUnit}>
-                -
-              </button>
-              <span className={styles.counter}>{quantity}</span>
-              <button className={styles.add} onClick={handleAddUnit}>
-                +
-              </button>
-            </div>
-            <div className={styles.subtotal}>
-              <p>Subtotal: <span className={styles.highlight}>{formattedSubtotal}</span></p>
-            </div>
-          </div>
-          <div className={styles.buttonContainer}>
-            <Link to={`/cart-detail`}>
-              <button className={styles.categoryButton}>Ver Carrito</button>
-            </Link>
-            {user?.role === "admin" && (
-              <Link
-                to={`/products/edit/${product.id}`}
-                className={styles.editButton}
-              >
-                <button className={styles.categoryButton}>Editar</button>
-              </Link>
-            )}
-          </div>
-        </div>
+        <ProductCard
+          title={product.title}
+          price={product.price}
+          description={product.description}
+          category={product.category}
+          images={product.images}
+          handleAddProductToCart={handleAddUnit}
+          handleRemoveProductFromCart={handleRemoveUnit}
+          id={product.id}
+        />
       </div>
-
+      <div className={styles.buttonContainer}>
+        <Link to={`/cart-detail`}>
+          <button className={styles.categoryButton}>Ver Carrito</button>
+        </Link>
+        {user?.role === "admin" && (
+          <Link
+            to={`/products/edit/${product.id}`}
+            className={styles.editButton}
+          >
+            <button className={styles.categoryButton}>Editar</button>
+          </Link>
+        )}
+      </div>
       <div className={styles.carruselContainer}>
         <div className={styles.gridContainer}>
           {images.map((image, index) => (

@@ -47,27 +47,31 @@ function ProductCard(props: ProductProps & HandleProps) {
         <div className={styles.info_container}>
           <h2 className={styles.title}>{props.title}</h2>
           <h3 className={styles.description}>{props.description}</h3>
-          <p>{formattedPrice}</p>
+          <p className={styles.price}>{formattedPrice}</p>
         </div>
         <div className={styles.handler_subtotal}>
-          <button
-            className={styles.remove}
-            onClick={(event) => {
-              handleRemoveUnit(event);
-            }}
-          >
-            -
-          </button>
-          <span>{quantity}</span>
-          <button
-            className={styles.add}
-            onClick={(event) => {
-              handleAddUnit(event);
-            }}
-          >
-            +
-          </button>
-          <span>Subtotal: {formattedSubtotal}</span>
+          <div className={styles.handler}>
+            <button
+              className={styles.remove}
+              onClick={(event) => {
+                handleRemoveUnit(event);
+              }}
+            >
+              -
+            </button>
+            <span className={styles.counter}>{quantity}</span>
+            <button
+              className={styles.add}
+              onClick={(event) => {
+                handleAddUnit(event);
+              }}
+            >
+              +
+            </button>
+          </div>
+          <div className={styles.subtotal}>
+            <p>Subtotal: {formattedSubtotal}</p>
+          </div>
         </div>
       </div>
     </Link>
