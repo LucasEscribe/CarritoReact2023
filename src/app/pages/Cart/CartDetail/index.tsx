@@ -25,8 +25,9 @@ function CartDetail() {
               description={product.description}
               category={product.category}
               images={product.images}
-              handleAddProductToCart={() => {}}
-              handleRemoveProductFromCart={() => {}}
+              handleAddProductToCart={() => { }}
+              handleRemoveProductFromCart={() => { }}
+              subtotal={product.subtotal}
               id={product.id}
             />
           ))

@@ -98,7 +98,7 @@ function ProductComponent({ categoryID }: ProductComponentProps) {
                     handleAddProductToCart={handleAddProductToCart}
                     handleRemoveProductFromCart={handleRemoveProductFromCart}
                     id={product.id}
-                  />
+                    subtotal={product.subtotal}                  />
                 ) : (
                   <Link to={`/products/${product.id}`}>
                     <ProductCard
@@ -109,6 +109,7 @@ function ProductComponent({ categoryID }: ProductComponentProps) {
                       images={product.images}
                       handleAddProductToCart={handleAddProductToCart}
                       handleRemoveProductFromCart={handleRemoveProductFromCart}
+                      subtotal={product.subtotal}
                       id={product.id}
                     />
                   </Link>

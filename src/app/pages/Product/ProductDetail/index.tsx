@@ -34,19 +34,11 @@ function ProductDetail() {
   const handleUpdateCart = (quantityChange: number) => {
     setQuantity((prevQuantity) => prevQuantity + quantityChange);
     updateCart({
-      id: product.id,
-      title: product.title,
-      price: product.price,
-      quantity: quantityChange,
-      description: product.description,
-      category: {
-        id: product.category.id,
-        name: product.category.name,
-        image: product.category.image,
-      },
-      images: product.images,
+      ...product,
+      quantity: quantity + quantityChange,
     });
   };
+  
 
   const handleAddUnit = () => {
     setQuantity((prevQuantity) => prevQuantity + 1);
@@ -98,6 +90,7 @@ function ProductDetail() {
           images={product.images}
           handleAddProductToCart={handleAddUnit}
           handleRemoveProductFromCart={handleRemoveUnit}
+          subtotal={product.subtotal}
           id={product.id}
         />
       </div>

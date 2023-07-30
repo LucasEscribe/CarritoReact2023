@@ -1,12 +1,11 @@
 import React from 'react';
 import { FaShoppingCart } from 'react-icons/fa';
+import { useCart } from "../../../contexts/CartContext";
 
-type TotalProps = {
-    totalPrice: number;
-};
+function Total() {
+    const { totalPrice } = useCart();
 
-function Total(props: TotalProps) {
-    const formattedTotal = props.totalPrice.toLocaleString("es-AR", {
+    const formattedTotal = totalPrice.toLocaleString("es-AR", {
         style: "currency",
         currency: "ARS",
         minimumFractionDigits: 2,

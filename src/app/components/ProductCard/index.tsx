@@ -17,19 +17,13 @@ function ProductCard(props: ProductProps & HandleProps) {
   const handleUpdateCart = (quantityChange: number) => {
     setQuantity((prevQuantity) => prevQuantity + quantityChange);
     updateCart({
-      id: props.id,
-      title: props.title,
-      price: props.price,
-      quantity: quantityChange,
-      description: props.description,
-      category: {
-        id: props.category.id,
-        name: props.category.name,
-        image: props.category.image,
-      },
-      images: props.images,
+      ...props,
+      quantity: quantity + quantityChange,
+      subtotal: (quantity + quantityChange) * props.price,
     });
   };
+
+
 
   const handleAddUnit = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
@@ -62,6 +56,7 @@ function ProductCard(props: ProductProps & HandleProps) {
     currency: "ARS",
     minimumFractionDigits: 2,
   });
+
 
   return (
     <Link to={`/products/${props.id}`} className={styles.productLink}>
@@ -97,6 +92,7 @@ function ProductCard(props: ProductProps & HandleProps) {
           <div className={styles.subtotal}>
             <p>Subtotal: {formattedSubtotal}</p>
           </div>
+
           {quantity > 0 && (
             <div className={styles.removeButton}>
               <button onClick={handleRemoveFromCart}>Quitar del carrito</button>
