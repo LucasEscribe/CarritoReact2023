@@ -28,43 +28,35 @@ function ProductDetail() {
   );
   const { user } = useContext(AuthContext);
 
+  const { updateCart } = useCart();
   const [quantity, setQuantity] = useState(0);
 
-  const { updateCart } = useCart();
-
-  const handleAddUnit = () => {
-    setQuantity((prevQuantity) => prevQuantity + 1);
+  const handleUpdateCart = (quantityChange: number) => {
+    setQuantity((prevQuantity) => prevQuantity + quantityChange);
     updateCart({
       id: product.id,
       title: product.title,
       price: product.price,
-      quantity: 1,
-      images: "",
+      quantity: quantityChange,
+      description: product.description,
       category: {
-        id: 0,
-        name: "",
-        image: ""
+        id: product.category.id,
+        name: product.category.name,
+        image: product.category.image,
       },
-      description: ""
+      images: product.images,
     });
+  };
+
+  const handleAddUnit = () => {
+    setQuantity((prevQuantity) => prevQuantity + 1);
+    handleUpdateCart(1);
   };
 
   const handleRemoveUnit = () => {
     if (quantity > 0) {
       setQuantity((prevQuantity) => prevQuantity - 1);
-      updateCart({
-        id: product.id,
-        title: product.title,
-        price: product.price,
-        quantity: -1,
-        images: "",
-        category: {
-          id: 0,
-          name: "",
-          image: ""
-        },
-        description: ""
-      });
+      handleUpdateCart(-1);
     }
   };
 
@@ -92,8 +84,8 @@ function ProductDetail() {
   });
 
   const images = Array.isArray(product.images)
-    ? product.images
-    : [product.images];
+  ? product.images
+  : [product.images];
 
   return (
     <>

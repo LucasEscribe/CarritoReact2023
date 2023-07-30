@@ -63,7 +63,7 @@
 .handler_subtotal {
   display: grid;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   margin: 30px 0;
   color: #ff9900;
 }
@@ -71,12 +71,14 @@
 .handler {
   display: flex;
   align-items: center;
+  flex: 1;
 }
 
 .counter {
   font-size: 22px;
   color: #ff9900;
-  margin: 0 10px;
+  margin: 0 50px;
+  flex: 1;
 }
 
 .remove,
@@ -87,7 +89,14 @@
   background-color: #ffffff;
   color: #000000;
   cursor: pointer;
-  margin-right: 20px;
+}
+
+.remove {
+  margin-right: auto;
+}
+
+.add {
+  margin-left: auto;
 }
 
 .remove:hover,
@@ -100,6 +109,25 @@
   margin-left: 10px;
   text-align: center;
   color: #ff9900;
+}
+
+.removeButton {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.removeButton button {
+  font-size: 16px;
+  padding: 8px 16px;
+  border: none;
+  background-color: #ff0000;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.removeButton button:hover {
+  background-color: #cc0000;
 }
 
 @media (max-width: 768px) {

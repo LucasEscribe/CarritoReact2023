@@ -12,60 +12,40 @@ type HandleProps = HandleProductCart;
 function ProductCard(props: ProductProps & HandleProps) {
   const [quantity, setQuantity] = useState(0);
 
-  const { cartItems, updateCart, removeItemFromCart } = useCart();
+  const { updateCart, removeItemFromCart } = useCart();
 
-  const handleAddUnit = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-    setQuantity((prevQuantity) => prevQuantity + 1);
+  const handleUpdateCart = (quantityChange: number) => {
+    setQuantity((prevQuantity) => prevQuantity + quantityChange);
     updateCart({
       id: props.id,
       title: props.title,
       price: props.price,
-      quantity: 1,
-      description: "",
+      quantity: quantityChange,
+      description: props.description,
       category: {
-        id: 0,
-        name: "",
-        image: ""
+        id: props.category.id,
+        name: props.category.name,
+        image: props.category.image,
       },
-      images: ""
+      images: props.images,
     });
+  };
+
+  const handleAddUnit = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    handleUpdateCart(1);
   };
 
   const handleRemoveUnit = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     if (quantity > 0) {
-      setQuantity((prevQuantity) => prevQuantity - 1);
-      updateCart({
-        id: props.id,
-        title: props.title,
-        price: props.price,
-        quantity: -1,
-        description: "",
-        category: {
-          id: 0,
-          name: "",
-          image: ""
-        },
-        images: ""
-      });
+      handleUpdateCart(-1);
     }
   };
 
-  const handleRemoveFromCart = () => {
-    updateCart({
-      id: props.id,
-      title: props.title,
-      price: props.price,
-      quantity: -quantity,
-      description: "",
-      category: {
-        id: 0,
-        name: "",
-        image: ""
-      },
-      images: ""
-    });
+  const handleRemoveFromCart = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    removeItemFromCart(props.id);
     setQuantity(0);
   };
 
@@ -118,10 +98,10 @@ function ProductCard(props: ProductProps & HandleProps) {
             <p>Subtotal: {formattedSubtotal}</p>
           </div>
           {quantity > 0 && (
-          <div className={styles.removeButton}>
-            <button onClick={handleRemoveFromCart}>Quitar del carrito</button>
-          </div>
-        )}
+            <div className={styles.removeButton}>
+              <button onClick={handleRemoveFromCart}>Quitar del carrito</button>
+            </div>
+          )}
         </div>
       </div>
     </Link>

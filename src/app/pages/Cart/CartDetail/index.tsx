@@ -7,33 +7,36 @@ import Home from "../../../pages/Home";
 function CartDetail() {
   const { cartItems } = useCart();
 
-  if (cartItems.length === 0) {
-    return (
-      <div className={styles.gridContainer}>
-        <h1>Detalle de su carrito:</h1>
-        <p>Su carrito está vacío. ¡Agregue algunos productos!</p>
-        <Home />
-      </div>
-    );
-  }
-
   return (
-    <div className={styles.gridContainer}>
-      <h1>Detalle de su carrito:</h1>
-      {cartItems.map((product) => (
-        <ProductCard
-          key={product.id}
-          title={product.title}
-          price={product.price}
-          description={product.description}
-          category={product.category}
-          images={product.images}
-          handleAddProductToCart={() => {}}
-          handleRemoveProductFromCart={() => {}}
-          id={product.id}
-        />
-      ))}
-    </div>
+    <>
+      <div className={styles.header}>
+        <h1>Detalle de su carrito:</h1>
+        {cartItems.length === 0 && (
+          <p>Su carrito está vacío. ¡Agregue algunos productos!</p>
+        )}
+      </div>
+      <div className={styles.gridContainer}>
+        {cartItems.length > 0 ? (
+          cartItems.map((product) => (
+            <ProductCard
+              key={product.id}
+              title={product.title}
+              price={product.price}
+              description={product.description}
+              category={product.category}
+              images={product.images}
+              handleAddProductToCart={() => {}}
+              handleRemoveProductFromCart={() => {}}
+              id={product.id}
+            />
+          ))
+        ) : (
+          <div className={styles.emptyCartContainer}>
+            <Home />
+          </div>
+        )}
+      </div>
+    </>
   );
 }
 
