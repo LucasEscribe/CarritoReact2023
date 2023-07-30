@@ -28,19 +28,43 @@ function ProductDetail() {
   );
   const { user } = useContext(AuthContext);
 
-  const { updateTotalPrice } = useCart();
-
   const [quantity, setQuantity] = useState(0);
+
+  const { updateCart } = useCart();
 
   const handleAddUnit = () => {
     setQuantity((prevQuantity) => prevQuantity + 1);
-    updateTotalPrice(data.price);
+    updateCart({
+      id: product.id,
+      title: product.title,
+      price: product.price,
+      quantity: 1,
+      images: "",
+      category: {
+        id: 0,
+        name: "",
+        image: ""
+      },
+      description: ""
+    });
   };
 
   const handleRemoveUnit = () => {
     if (quantity > 0) {
       setQuantity((prevQuantity) => prevQuantity - 1);
-      updateTotalPrice(-data.price);
+      updateCart({
+        id: product.id,
+        title: product.title,
+        price: product.price,
+        quantity: -1,
+        images: "",
+        category: {
+          id: 0,
+          name: "",
+          image: ""
+        },
+        description: ""
+      });
     }
   };
 

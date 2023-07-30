@@ -4,6 +4,7 @@ import { Product } from "../../types/product";
 import { HandleProductCart } from "../../types/handleProductCart";
 import { Link } from "react-router-dom";
 import styles from "./styles.module.css";
+import { useCart } from "../../contexts/CartContext";
 
 type ProductProps = Product;
 type HandleProps = HandleProductCart;
@@ -11,19 +12,63 @@ type HandleProps = HandleProductCart;
 function ProductCard(props: ProductProps & HandleProps) {
   const [quantity, setQuantity] = useState(0);
 
+  const { cartItems, updateCart, removeItemFromCart } = useCart();
+
   const handleAddUnit = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     setQuantity((prevQuantity) => prevQuantity + 1);
-    props.handleAddProductToCart(props.price);
+    updateCart({
+      id: props.id,
+      title: props.title,
+      price: props.price,
+      quantity: 1,
+      description: "",
+      category: {
+        id: 0,
+        name: "",
+        image: ""
+      },
+      images: ""
+    });
   };
 
   const handleRemoveUnit = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     if (quantity > 0) {
       setQuantity((prevQuantity) => prevQuantity - 1);
-      props.handleRemoveProductFromCart(props.price);
+      updateCart({
+        id: props.id,
+        title: props.title,
+        price: props.price,
+        quantity: -1,
+        description: "",
+        category: {
+          id: 0,
+          name: "",
+          image: ""
+        },
+        images: ""
+      });
     }
   };
+
+  const handleRemoveFromCart = () => {
+    updateCart({
+      id: props.id,
+      title: props.title,
+      price: props.price,
+      quantity: -quantity,
+      description: "",
+      category: {
+        id: 0,
+        name: "",
+        image: ""
+      },
+      images: ""
+    });
+    setQuantity(0);
+  };
+
 
   const formattedPrice = props.price.toLocaleString("es-AR", {
     style: "currency",
@@ -72,6 +117,11 @@ function ProductCard(props: ProductProps & HandleProps) {
           <div className={styles.subtotal}>
             <p>Subtotal: {formattedSubtotal}</p>
           </div>
+          {quantity > 0 && (
+          <div className={styles.removeButton}>
+            <button onClick={handleRemoveFromCart}>Quitar del carrito</button>
+          </div>
+        )}
         </div>
       </div>
     </Link>
