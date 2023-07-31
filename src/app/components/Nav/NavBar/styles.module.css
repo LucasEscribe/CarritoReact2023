@@ -3,13 +3,14 @@
   top: 0;
   left: 0;
   right: 0;
-  background-color: #615b5b;
+  background: linear-gradient(to left, #113c4b, #167816);
   border-bottom-left-radius: 12px;
   border-bottom-right-radius: 12px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 20px;
+  margin-bottom: 20px;
 }
 
 .totalButton {
@@ -141,6 +142,19 @@
   margin-right: 30px;
   align-items: center;
 }
+
+.logoCenter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: aquamarine;
+}
+
+.logoCenter p {
+  margin-top: 10px;
+}
+
 
 /* .transparentButton {
   background: none;

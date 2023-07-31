@@ -13,7 +13,7 @@ function Total() {
 
     return (
         <div /* className={styles.total} */>
-            <FaShoppingCart size={32} />
+            <FaShoppingCart size={22} />
             <p>Total Carrito: {formattedTotal}</p>
         </div>
     );

@@ -10,6 +10,7 @@ import styles from './styles.module.css';
 import React from 'react';
 import Filter from '../../../components/Filter';
 import { Product } from '../../../types/product';
+import { FaShoppingCart } from 'react-icons/fa';
 
 function NavBar() {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -49,6 +50,12 @@ function NavBar() {
                         <span className={styles.menuIcon}>&#8942;</span>
                     </button>
                 </div>
+                <Link to="/">
+                <div className={styles.logoCenter}>
+                    <FaShoppingCart size={64} />
+                    <p>RitoShopa</p>
+                </div>
+                </Link>
                 <div className={styles.rightContent}>
                     {!user ? (
                         <>
@@ -65,7 +72,7 @@ function NavBar() {
                         </>
                     ) : user.role === "admin" || user.role === "customer" ? (
                         <Link to="/cart-detail" className={`${styles.totalButton} ${styles.transparentButton}`}>
-                            <Total totalPrice={totalPrice} />
+                            <Total />
                         </Link>
                     ) : null}
                 </div>
