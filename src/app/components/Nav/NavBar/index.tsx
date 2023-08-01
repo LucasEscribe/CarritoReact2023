@@ -1,6 +1,6 @@
 import { useContext, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, Navigate, useLocation } from 'react-router-dom';
 import { ThemeContext } from "../../../contexts/ThemeContext";
 import { AuthContext } from "../../../contexts/AuthContext";
 import { useCart } from '../../../contexts/CartContext';
@@ -11,11 +11,15 @@ import React from 'react';
 import Filter from '../../../components/Filter';
 import { Product } from '../../../types/product';
 import { FaShoppingCart } from 'react-icons/fa';
+import { ShoppingCart } from '@mui/icons-material';
+
 
 function NavBar() {
     const [menuOpen, setMenuOpen] = useState(false);
     const [searchOpen, setSearchOpen] = useState(false);
     const menuRef = useRef<HTMLDivElement>(null);
+    const location = useLocation();
+    const isCartDetailPage = location.pathname === "/cart-detail";
 
     const handleSearchClick = () => {
         setSearchOpen(!searchOpen);
@@ -51,11 +55,20 @@ function NavBar() {
                     </button>
                 </div>
                 <Link to="/">
-                <div className={styles.logoCenter}>
-                    <FaShoppingCart size={64} />
-                    <p>RitoShopa</p>
-                </div>
+                    <div className={styles.logoCenter}>
+                        <ShoppingCart fontSize="large" />
+                        <p>RitoShopa</p>
+                    </div>
                 </Link>
+                
+                {isCartDetailPage && totalPrice != 0 && (
+                    <div className={styles.cartButton}>
+                        <Link to={`/buy`}>
+                            <button className={styles.categoryButton}>Finalizar Compra</button>
+                        </Link>
+                    </div>
+                )} 
+                
                 <div className={styles.rightContent}>
                     {!user ? (
                         <>

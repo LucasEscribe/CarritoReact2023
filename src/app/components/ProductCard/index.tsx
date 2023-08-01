@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { Product } from "../../types/product";
 import { HandleProductCart } from "../../types/handleProductCart";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import styles from "./styles.module.css";
 import { useCart } from "../../contexts/CartContext";
 
@@ -10,20 +10,23 @@ type ProductProps = Product;
 type HandleProps = HandleProductCart;
 
 function ProductCard(props: ProductProps & HandleProps) {
-  const [quantity, setQuantity] = useState(0);
+  const { cartItems, updateCart, removeItemFromCart } = useCart();
+  const cartItem = cartItems.find((item) => item.id === props.id);
+  const currentQuantity = cartItem ? cartItem.quantity : 0;
+  const [quantity, setQuantity] = useState(currentQuantity);
+  const location = useLocation();
+  const isCartDetailPage = location.pathname === "/cart-detail";
 
-  const { updateCart, removeItemFromCart } = useCart();
 
   const handleUpdateCart = (quantityChange: number) => {
-    setQuantity((prevQuantity) => prevQuantity + quantityChange);
+    const newQuantity = quantity + quantityChange;
+    setQuantity(newQuantity);
     updateCart({
       ...props,
-      quantity: quantity + quantityChange,
-      subtotal: (quantity + quantityChange) * props.price,
+      quantity: newQuantity,
+      subtotal: newQuantity * props.price,
     });
   };
-
-
 
   const handleAddUnit = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
@@ -94,9 +97,18 @@ function ProductCard(props: ProductProps & HandleProps) {
           </div>
 
           {quantity > 0 && (
-            <div className={styles.removeButton}>
-              <button onClick={handleRemoveFromCart}>Quitar del carrito</button>
-            </div>
+            <>
+              <div className={styles.removeButton}>
+                <button onClick={handleRemoveFromCart}>Quitar del carrito</button>
+              </div>
+              {!isCartDetailPage && (
+                <div className={styles.cartButton}>
+                  <Link to={`/cart-detail`}>
+                    <button className={styles.categoryButton}>Ver Carrito</button>
+                  </Link>
+                </div>
+              )}
+            </>
           )}
         </div>
       </div>

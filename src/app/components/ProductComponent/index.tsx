@@ -73,9 +73,9 @@ function ProductComponent({ categoryID }: ProductComponentProps) {
   return (
     <main>
       {categoryID ? (
-        <h1>Productos de la categoría {categoryID}:</h1>
+        <h1 className={styles.title}>Productos de la categoría {categoryID}:</h1>
       ) : (
-        <h1>Todos Los Productos:</h1>
+        <h1 className={styles.title}>Todos Los Productos:</h1>
       )}
       <div className={styles.grid}>
         <Filter
@@ -98,20 +98,19 @@ function ProductComponent({ categoryID }: ProductComponentProps) {
                     handleAddProductToCart={handleAddProductToCart}
                     handleRemoveProductFromCart={handleRemoveProductFromCart}
                     id={product.id}
-                    subtotal={product.subtotal}                  />
+                    subtotal={product.subtotal} quantity={0}                  />
                 ) : (
                   <Link to={`/products/${product.id}`}>
                     <ProductCard
-                      title={product.title}
-                      price={product.price}
-                      description={product.description}
-                      category={product.category}
-                      images={product.images}
-                      handleAddProductToCart={handleAddProductToCart}
-                      handleRemoveProductFromCart={handleRemoveProductFromCart}
-                      subtotal={product.subtotal}
-                      id={product.id}
-                    />
+                        title={product.title}
+                        price={product.price}
+                        description={product.description}
+                        category={product.category}
+                        images={product.images}
+                        handleAddProductToCart={handleAddProductToCart}
+                        handleRemoveProductFromCart={handleRemoveProductFromCart}
+                        subtotal={product.subtotal}
+                        id={product.id} quantity={0}                    />
                   </Link>
                 )}
               </div>

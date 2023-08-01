@@ -10,7 +10,7 @@ function CartDetail() {
   return (
     <>
       <div className={styles.header}>
-        <h1>Detalle de su carrito:</h1>
+      <h1 className={styles.title}>Detalle de su carrito:</h1>
         {cartItems.length === 0 && (
           <p>Su carrito está vacío. ¡Agregue algunos productos!</p>
         )}

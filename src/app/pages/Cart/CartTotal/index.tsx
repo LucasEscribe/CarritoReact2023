@@ -1,6 +1,8 @@
 import React from 'react';
 import { FaShoppingCart } from 'react-icons/fa';
 import { useCart } from "../../../contexts/CartContext";
+import styles from './styles.module.css';
+
 
 function Total() {
     const { totalPrice } = useCart();
@@ -12,9 +14,10 @@ function Total() {
     });
 
     return (
-        <div /* className={styles.total} */>
+        <div className={styles.total} >
             <FaShoppingCart size={22} />
-            <p>Total Carrito: {formattedTotal}</p>
+            <p>Total Carrito:</p>
+            {formattedTotal}
         </div>
     );
 }

@@ -91,13 +91,12 @@ function ProductDetail() {
           handleAddProductToCart={handleAddUnit}
           handleRemoveProductFromCart={handleRemoveUnit}
           subtotal={product.subtotal}
-          id={product.id}
-        />
+          id={product.id} quantity={0}        />
       </div>
       <div className={styles.buttonContainer}>
-        <Link to={`/cart-detail`}>
+        {/* <Link to={`/cart-detail`}>
           <button className={styles.categoryButton}>Ver Carrito</button>
-        </Link>
+        </Link> */}
         {user?.role === "admin" && (
           <Link
             to={`/products/edit/${product.id}`}

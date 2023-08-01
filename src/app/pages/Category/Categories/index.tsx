@@ -25,7 +25,7 @@ function Categories() {
 
   return (
     <main>
-      <h1>Categorías:</h1>
+      <h1 className={styles.title}>Categorías:</h1>
       <div className={styles.main}>
         {status === "loading" && <h1>Cargando....</h1>}
         {status === "error" && <h1>Error: {(error as Error).message}</h1>}
