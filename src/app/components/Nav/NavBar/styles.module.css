@@ -3,13 +3,14 @@
   top: 0;
   left: 0;
   right: 0;
-  background-color: #615b5b;
+  background: linear-gradient(to left, #113c4b, #167816);
   border-bottom-left-radius: 12px;
   border-bottom-right-radius: 12px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 20px;
+  margin-bottom: 20px;
 }
 
 .totalButton {
@@ -80,7 +81,7 @@
   text-decoration: none;
 }
 
-.buttonsBelow{
+.buttonsBelow {
   display: flex;
 }
 
@@ -108,7 +109,6 @@
 }
 
 .logoutButton li {
-
   margin-bottom: 5px;
 }
 
@@ -142,17 +142,39 @@
   align-items: center;
 }
 
-/* .transparentButton {
-  background: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
+.logoCenter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: aquamarine;
 }
 
-.transparentButton:focus,
-.totalButton:focus {
-  outline: none;
-} */
+.logoCenter p {
+  font-size: small;
+  margin-top: 10px;
+  color: #1ed11e;
+}
+
+.cartButton {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.categoryButton {
+  font-size: 16px;
+  padding: 8px 16px;
+  border: none;
+  background-color: #007bff;
+  color: #ffffff;
+  cursor: pointer;
+  transition: background-color 0.25s;
+}
+
+.categoryButton:hover {
+  background-color: #0056b3;
+}
 
 @media (max-width: 768px) {
   .navbarContainer {
@@ -188,16 +210,24 @@
     font-size: 12px;
   }
 
-  .buttonsBelow{
+  .buttonsBelow {
     display: grid;
   }
-    
+
   .rightContent {
     display: flex;
     margin-top: 0;
     margin-right: 0px;
     align-items: center;
     justify-content: flex-end;
+  }
+
+  .loginButton,
+  .registerButton {
+    font-size: 7px;
+    padding: 8px 16px;
+    margin-bottom: 8px;
+    transition: background-color 0.5s ease;
   }
 
   .totalButton {
@@ -215,5 +245,34 @@
 
   .menuIcon {
     font-size: 20px;
+  }
+
+  .logoCenter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: rgb(198, 98, 27);
+  }
+
+  .logoCenter p {
+    font-size: x-small;
+    margin-top: 10px;
+    color: rgb(184, 167, 11);
+  }
+
+  .cartButton {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+  }
+
+  .categoryButton {
+    background-color: #007bff;
+    font-size: 10px;
+  }
+
+  .categoryButton:hover {
+    background-color: #0056b3;
   }
 }

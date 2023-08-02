@@ -7,11 +7,12 @@
 
 .outletContainer {
   margin-top: 160px;
+  padding: auto;
 }
 
 @media (max-width: 768px) {
   .layoutContainer {
-    position: static;
+    position: absolute;
   }
 
   .outletContainer {

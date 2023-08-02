@@ -31,6 +31,10 @@
     grid-template-columns: repeat(2, 1fr);
     margin: 25px;
   }
+
+  .title{
+    font-size: xx-large;
+  }
 }
 
 @media (max-width: 480px) {
