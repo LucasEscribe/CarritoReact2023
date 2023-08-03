@@ -5,6 +5,7 @@ import { Product } from "../../../types/product";
 import styles from "./styles.module.css";
 import { useCart } from "../../../contexts/CartContext";
 import { AuthContext } from "../../../contexts/AuthContext";
+import { ThemeContext } from "../../../contexts/ThemeContext";
 import ProductCard from "../../../components/ProductCard";
 
 const fetchProduct = async (productID: string) => {
@@ -21,6 +22,7 @@ const fetchProduct = async (productID: string) => {
 };
 
 function ProductDetail() {
+  const { darkMode } = useContext(ThemeContext);
   const { productID } = useParams();
   const { data, status, error } = useQuery(
     ["product", productID],
@@ -38,7 +40,6 @@ function ProductDetail() {
       quantity: quantity + quantityChange,
     });
   };
-  
 
   const handleAddUnit = () => {
     setQuantity((prevQuantity) => prevQuantity + 1);
@@ -62,6 +63,11 @@ function ProductDetail() {
 
   const product: Product = data;
 
+  const productContainerClassName = darkMode
+  ? styles.productContainer
+  : `${styles.productContainer} ${styles.productContainerLight}`;
+
+
   const formattedPrice = product.price.toLocaleString("es-AR", {
     style: "currency",
     currency: "ARS",
@@ -76,12 +82,16 @@ function ProductDetail() {
   });
 
   const images = Array.isArray(product.images)
-  ? product.images
-  : [product.images];
+    ? product.images
+    : [product.images];
 
   return (
     <>
-      <div className={styles.productContainer}>
+      <div>
+        <h2 className={styles.title}>Detalle del producto</h2>
+      </div>
+
+      <div className={productContainerClassName}>
         <ProductCard
           title={product.title}
           price={product.price}
@@ -91,12 +101,10 @@ function ProductDetail() {
           handleAddProductToCart={handleAddUnit}
           handleRemoveProductFromCart={handleRemoveUnit}
           subtotal={product.subtotal}
-          id={product.id} quantity={0}        />
+          id={product.id}
+          quantity={0} />
       </div>
       <div className={styles.buttonContainer}>
-        {/* <Link to={`/cart-detail`}>
-          <button className={styles.categoryButton}>Ver Carrito</button>
-        </Link> */}
         {user?.role === "admin" && (
           <Link
             to={`/products/edit/${product.id}`}

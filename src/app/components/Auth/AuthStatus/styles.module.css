@@ -1,16 +1,22 @@
 .greeting {
-  margin-right: 10px;
-  padding-left: 30px;
+  align-self: flex-start;
 }
+
 
 .authContainer {
   display: flex;
-  align-items: center;
+  justify-content: space-between;
+  margin: 30px;
 }
 
 .logoutButton {
-  background: none;
+  background-color: #33a1de;
+  color: #ffffff;
+  font-size: 8px;
+  padding: 8px 16px;
+  margin-bottom: 22px;
   border: none;
-  color: #007bff;
+  border-radius: 5px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }

@@ -1,19 +1,16 @@
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); /* Ajusta el ancho mínimo y máximo */
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   gap: 20px;
   margin: 28px;
 }
 
-@media (max-width: 768px) {
-  .grid {
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Ajusta el ancho mínimo y máximo en dispositivos móviles */
-    margin: 22px;
-  }
+.product_container {
+  background-color:  #121312;
+}
 
-  .title{
-    font-size: xx-large;
-  }
+.product_containerLight {
+  background-color:rgb(164, 164, 164);
 }
 
 .pagination {
@@ -21,4 +18,16 @@
   justify-content: space-around;
   margin: 30px;
   padding: 10px;
+}
+
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    margin: 22px;
+  }
+
+  .title{
+    font-size: xx-large;
+  }
 }

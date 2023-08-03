@@ -50,7 +50,9 @@ function NavBar() {
         <>
             <div className={styles.navbarContainer}>
                 <div>
-                    <button className={`${styles.menuButton} ${styles.transparentButton}`} onClick={handleMenuClick}>
+                    <button
+                    className={`${styles.menuButton} ${styles.transparentButton}`}
+                    onClick={handleMenuClick}>
                         <span className={styles.menuIcon}>&#8942;</span>
                     </button>
                 </div>
@@ -64,7 +66,9 @@ function NavBar() {
                 {isCartDetailPage && totalPrice != 0 && (
                     <div className={styles.cartButton}>
                         <Link to={`/buy`}>
-                            <button className={styles.categoryButton}>Finalizar Compra</button>
+                            <button className={styles.categoryButton}>
+                                Finalizar Compra
+                            </button>
                         </Link>
                     </div>
                 )} 

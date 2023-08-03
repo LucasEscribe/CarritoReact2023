@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import { Product } from "../../types/product";
 import { useCart } from "../../contexts/CartContext";
+import { ThemeContext } from "../../contexts/ThemeContext";
 import Filter from "../Filter";
 import ProductCard from "../ProductCard";
 import styles from "./styles.module.css";
@@ -29,6 +30,7 @@ const fetchProducts = async (categoryID?: string, offset = 0, limit = 10) => {
 };
 
 function ProductComponent({ categoryID }: ProductComponentProps) {
+  const { darkMode } = useContext(ThemeContext);
   const [offset, setOffset] = useState(0);
   const [limit] = useState(10);
 
@@ -69,6 +71,10 @@ function ProductComponent({ categoryID }: ProductComponentProps) {
     window.scrollTo(0, 0);
   }, [offset]);
 
+  const productContainerClassName = darkMode
+  ? styles.product_container
+  : `${styles.product_container} ${styles.product_containerLight}`;
+
 
   return (
     <main>
@@ -89,6 +95,7 @@ function ProductComponent({ categoryID }: ProductComponentProps) {
             return (
               <div key={product.id}>
                 {categoryID ? (
+                  <div className={productContainerClassName}>
                   <ProductCard
                     title={product.title}
                     price={product.price}
@@ -99,8 +106,10 @@ function ProductComponent({ categoryID }: ProductComponentProps) {
                     handleRemoveProductFromCart={handleRemoveProductFromCart}
                     id={product.id}
                     subtotal={product.subtotal} quantity={0}                  />
+                  </div>
                 ) : (
                   <Link to={`/products/${product.id}`}>
+                    <div className={productContainerClassName}>
                     <ProductCard
                         title={product.title}
                         price={product.price}
@@ -111,6 +120,7 @@ function ProductComponent({ categoryID }: ProductComponentProps) {
                         handleRemoveProductFromCart={handleRemoveProductFromCart}
                         subtotal={product.subtotal}
                         id={product.id} quantity={0}                    />
+                    </div>
                   </Link>
                 )}
               </div>

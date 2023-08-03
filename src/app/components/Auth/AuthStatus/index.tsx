@@ -13,7 +13,7 @@ function AuthStatus() {
 
   return (
     <div className={styles.authContainer}>
-      <p className={styles.greeting}>Bienvenido {auth.user.name}!</p>
+      <p className={styles.greeting}>Bienvenido, {auth.user.role}!</p>
       <button
         className={styles.logoutButton}
         onClick={() => {
