@@ -71,11 +71,6 @@ function ProductComponent({ categoryID }: ProductComponentProps) {
     window.scrollTo(0, 0);
   }, [offset]);
 
-  const productContainerClassName = darkMode
-  ? styles.product_container
-  : `${styles.product_container} ${styles.product_containerLight}`;
-
-
   return (
     <main>
       {categoryID ? (
@@ -93,9 +88,8 @@ function ProductComponent({ categoryID }: ProductComponentProps) {
         {status === "success" &&
           filteredProducts.map((product: Product) => {
             return (
-              <div key={product.id}>
-                {categoryID ? (
-                  <div className={productContainerClassName}>
+              <Link key={product.id} to={`/products/${product.id}`}>
+                <div>
                   <ProductCard
                     title={product.title}
                     price={product.price}
@@ -104,26 +98,12 @@ function ProductComponent({ categoryID }: ProductComponentProps) {
                     images={product.images}
                     handleAddProductToCart={handleAddProductToCart}
                     handleRemoveProductFromCart={handleRemoveProductFromCart}
+                    subtotal={product.subtotal}
                     id={product.id}
-                    subtotal={product.subtotal} quantity={0}                  />
-                  </div>
-                ) : (
-                  <Link to={`/products/${product.id}`}>
-                    <div className={productContainerClassName}>
-                    <ProductCard
-                        title={product.title}
-                        price={product.price}
-                        description={product.description}
-                        category={product.category}
-                        images={product.images}
-                        handleAddProductToCart={handleAddProductToCart}
-                        handleRemoveProductFromCart={handleRemoveProductFromCart}
-                        subtotal={product.subtotal}
-                        id={product.id} quantity={0}                    />
-                    </div>
-                  </Link>
-                )}
-              </div>
+                    quantity={0}
+                  />
+                </div>
+              </Link>
             );
           })}
       </div>

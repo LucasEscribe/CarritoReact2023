@@ -13,6 +13,7 @@ import { CartProvider } from "./contexts/CartContext";
 
 import Layout from "./components/Layout";
 import Home from "./pages/Home";
+import HomeAuth from "./pages/Auth/HomeAuth";
 import Categories from "./pages/Category/Categories";
 import Products from "./pages/Product/Products";
 import ProductDetail from "./pages/Product/ProductDetail";
@@ -48,6 +49,8 @@ function App() {
               <Routes>
                 <Route element={<Layout />}>
                   <Route path="/" element={<Home />} />
+                  <Route path="/auth" element={<RequireAuth adminOnly><React.Fragment><HomeAuth /></React.Fragment></RequireAuth>}></Route>
+
                   <Route path="/products" element={<Products />} />
                   <Route path="/products/:productID" element={<ProductDetail />} />
                   <Route path="/categories" element={<Categories />} />
@@ -60,9 +63,8 @@ function App() {
                   <Route path="/categories/create" element={<RequireAuth adminOnly><CategoryCreate /></RequireAuth>} />
                   <Route path="/categories/edit/:id" element={<RequireAuth adminOnly><CategoryEdit /></RequireAuth>} />
 
-                  <Route path="/cart-detail" element={<RequireAuth customerOnly><React.Fragment><CartDetail /></React.Fragment></RequireAuth>}></Route>
-                  <Route path="/buy" element={<RequireAuth customerOnly><React.Fragment><Buy /></React.Fragment></RequireAuth>}></Route>
-
+                  <Route path="/cart-detail" element={<RequireAuth><React.Fragment><CartDetail /></React.Fragment></RequireAuth>}></Route>
+                  <Route path="/buy" element={<RequireAuth><React.Fragment><Buy /></React.Fragment></RequireAuth>}></Route>
                 </Route>
                 <Route path="*" element={<NotFound />} />
               </Routes>

@@ -8,7 +8,6 @@ import styles from './styles.module.css';
 
 function Register() {
   let navigate = useNavigate();
-  let location = useLocation();
   let auth = UseAuth();
   const [isAdmin, setIsAdmin] = useState(false);
 
@@ -31,7 +30,7 @@ function Register() {
         };
         auth.signin(userData, () => {
           if (isAdmin) {
-            navigate('/products/create', { replace: true });
+            navigate('/auth', { replace: true });
           } else {
             navigate('/', { replace: true });
           }

@@ -31,7 +31,7 @@ function Login() {
         };
         auth.signin(profileData, () => {
           if (profileData.role === 'admin') {
-            navigate('/products/create', { replace: true });
+            navigate('/auth', { replace: true });
           } else {
             navigate('/cart-detail', { replace: true });
           }

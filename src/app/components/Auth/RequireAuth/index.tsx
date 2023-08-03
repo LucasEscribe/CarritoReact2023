@@ -16,14 +16,6 @@ function RequireAuth({ adminOnly, customerOnly, children }: RequireAuthProps) {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
-  if (adminOnly && auth.user.role !== "admin") {
-    return <Navigate to="/products/create" state={{ from: location }} replace />;
-  }
-
-  if (customerOnly && auth.user.role !== "customer") {
-    return <Navigate to="/cart-detail" state={{ from: location }} replace />;
-  }
-
   return <>{children}</>;
 }
 
