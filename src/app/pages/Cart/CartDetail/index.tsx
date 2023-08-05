@@ -10,7 +10,7 @@ function CartDetail() {
   return (
     <>
       <div className={styles.header}>
-      <h1 className={styles.title}>Detalle de su carrito:</h1>
+        <h1 className={styles.title}>Detalle de su carrito:</h1>
         {cartItems.length === 0 && (
           <p>Su carrito está vacío. ¡Agregue algunos productos!</p>
         )}
@@ -22,14 +22,14 @@ function CartDetail() {
               key={product.id}
               title={product.title}
               price={product.price}
-              description={product.description}
+              description={""}
               category={product.category}
               images={product.images}
-              handleAddProductToCart={() => { } }
-              handleRemoveProductFromCart={() => { } }
+              handleAddProductToCart={() => { }}
+              handleRemoveProductFromCart={() => { }}
               subtotal={product.subtotal}
               id={product.id}
-              quantity={0}            />
+              quantity={0} />
           ))
         ) : (
           <div className={styles.emptyCartContainer}>
