@@ -81,66 +81,10 @@
   text-align: center;
 }
 
-
-/* 
-.title {
-  font-size: 24px;
-  margin-bottom: 10px;
-  text-align: center;
-  color: #b6b6b6;
-}
-
-.description {
-  font-size: 18px;
-  margin-bottom: 10px;
-  text-align: center;
-  color: #b6b6b6;
-}
-
-.price {
-  font-size: 16px;
-  margin-bottom: 10px;
-  text-align: center;
-  color: #ff9900;
-}
-
-.highlight {
-  color: #ff9900;
-}
-
-.handler_subtotal {
-  display: grid;
-  align-items: center;
-  justify-content: space-between;
-  margin: 30px 0;
-  color: #ff9900;
-}
-
-.handler {
-  display: flex;
-  align-items: center;
-  flex: 1;
-}
-
-.counter {
-  font-size: 22px;
-  color: #ff9900;
-  margin: 0 50px;
-  flex: 1;
-}
-
-.subtotal {
-  font-size: 16px;
-  margin-left: 10px;
-  text-align: center;
-  color: #ff9900;
-}
-*/
-
 .remove,
 .add {
   font-size: 22px;
-  padding: 5px 10px;
+  padding: 20px;
   border: none;
   background-color: #ffffff;
   color: #000000;

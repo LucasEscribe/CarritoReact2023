@@ -16,14 +16,9 @@ import { ShoppingCart } from '@mui/icons-material';
 
 function NavBar() {
     const [menuOpen, setMenuOpen] = useState(false);
-    const [searchOpen, setSearchOpen] = useState(false);
     const menuRef = useRef<HTMLDivElement>(null);
     const location = useLocation();
     const isCartDetailPage = location.pathname === "/cart-detail";
-
-    const handleSearchClick = () => {
-        setSearchOpen(!searchOpen);
-    };
 
     const handleMenuClick = () => {
         setMenuOpen(!menuOpen);
@@ -38,8 +33,6 @@ function NavBar() {
             document.addEventListener("mousedown", handleOutsideClick);
         }
     };
-
-    const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
 
     const { totalPrice } = useCart();
 
@@ -95,17 +88,9 @@ function NavBar() {
                 </div>
             </div>
 
-            {searchOpen && (
-                <div className={styles.filterMenu}>
-                    <Filter products={filteredProducts} setFilteredProducts={setFilteredProducts} />
-                </div>
-
-            )}
             <MenuModal
                 menuOpen={menuOpen}
                 handleMenuClick={handleMenuClick}
-                handleSearchClick={handleSearchClick}
-                filteredProducts={filteredProducts}
             />
         </>
     );

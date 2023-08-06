@@ -10,11 +10,9 @@ import Filter from '../../Filter'
 type MenuModalProps = {
     menuOpen: boolean;
     handleMenuClick: () => void;
-    handleSearchClick: () => void;
-    filteredProducts: Product[];
 };
 
-const MenuModal: React.FC<MenuModalProps> = ({ menuOpen, handleMenuClick, handleSearchClick, filteredProducts }) => {
+const MenuModal: React.FC<MenuModalProps> = ({ menuOpen, handleMenuClick }) => {
     if (!menuOpen) return null;
     
     const [searchOpen, setSearchOpen] = useState(false);
@@ -135,12 +133,6 @@ const MenuModal: React.FC<MenuModalProps> = ({ menuOpen, handleMenuClick, handle
                     onClick={handleToggleDarkMode}
                 >
                     {darkMode ? "☀️" : "🌙"}
-                </button>
-                <button
-                    className={`${styles.themeButton}`}
-                    onClick={handleSearchClick}
-                >
-                    🔍
                 </button>
             </div>
         </div>,
