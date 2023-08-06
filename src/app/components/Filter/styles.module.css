@@ -92,3 +92,18 @@
 .searchIcon:hover {
   background-color: #535bf2;
 }
+
+@media (max-width: 978px) {
+  .searchIconContainer {
+    position: absolute;
+    top: 133px;
+    right: 150px;
+  }
+
+  .searchIcon {
+    margin-top: 7px;
+    font-size: 12px;
+    padding: 5px;
+    
+  }
+}
