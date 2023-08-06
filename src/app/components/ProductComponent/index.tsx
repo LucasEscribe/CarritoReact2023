@@ -73,11 +73,13 @@ function ProductComponent({ categoryID }: ProductComponentProps) {
 
   return (
     <main>
-      {categoryID ? (
-        <h1 className={styles.title}>Productos de la categoría {categoryID}:</h1>
-      ) : (
-        <h1 className={styles.title}>Todos Los Productos:</h1>
-      )}
+      <div className={styles.header}>
+        {categoryID ? (
+          <h1 className={styles.title}>Productos de la categoría {categoryID}:</h1>
+        ) : (
+          <h1 className={styles.title}>Todos Los Productos:</h1>
+        )}
+      </div>
       <div className={styles.grid}>
         <Filter
           products={data || []}

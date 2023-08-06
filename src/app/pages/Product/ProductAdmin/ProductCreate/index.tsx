@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useMutation, useQueryClient } from 'react-query';
 import axios from 'axios';
+import styles from "./styles.module.css";
+
 
 function ProductCreate() {
     const [formData, setFormData] = useState({
@@ -81,8 +83,8 @@ function ProductCreate() {
     }, []);
 
     return (
-        <div className="container">
-            <h1>Crear Producto</h1>
+        <div className={styles.container}>
+        <h1>Crear Producto</h1>
             <form onSubmit={handleSubmit}>
                 <label>
                     Nombre del Producto:{" "}

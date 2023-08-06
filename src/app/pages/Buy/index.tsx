@@ -17,12 +17,14 @@ function Buy() {
     style: "currency",
     currency: "ARS",
     minimumFractionDigits: 2,
-});
+  });
 
   if (cartItems.length === 0) {
     return (
       <>
-        <h1 className={styles.buyTitle}>¡Gracias por su compra!</h1>
+        <div className={styles.header}>
+          <h1 className={styles.title}>¡Gracias por su compra!</h1>
+        </div>
         <div className={styles.centeredButton}>
           <button onClick={() => navigate("/")} className={styles.buyButton}>Volver a la página principal</button>
         </div>
@@ -32,7 +34,9 @@ function Buy() {
 
   return (
     <>
-      <h1 className={styles.buyTitle}>¡Finalicemos su compra!</h1>
+      <div className={styles.header}>
+        <h1 className={styles.title}>¡Finalicemos su compra!</h1>
+      </div>
       <div className={styles.cartContainer}>
         {cartItems.map((item) => (
           <div key={item.id} className={styles.cartItem}>
