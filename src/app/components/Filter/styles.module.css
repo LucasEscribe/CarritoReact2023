@@ -97,10 +97,11 @@
   .searchIconContainer {
     position: absolute;
     top: 133px;
-    right: 150px;
+    right: 50%;
   }
 
   .searchIcon {
+    background: #cbcff8;
     margin-top: 7px;
     font-size: 12px;
     padding: 5px;
