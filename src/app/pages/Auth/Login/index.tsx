@@ -6,12 +6,16 @@ import axios from 'axios';
 import React from "react";
 import styles from './styles.module.css';
 
+/**
+ * Login page component.
+ */
 function Login() {
   let navigate = useNavigate();
   let location = useLocation();
   let auth = UseAuth();
   let from = location.state?.from || '/';
 
+  // Mutation to handle user signin
   const signinMutation = useMutation(
     (data: UserLoginData) => {
       return axios.post('https://api.escuelajs.co/api/v1/auth/login', data);
@@ -43,6 +47,7 @@ function Login() {
     }
   );
 
+  // Handle form submission
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     let formData = new FormData(event.currentTarget);

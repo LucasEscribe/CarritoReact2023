@@ -1,16 +1,8 @@
 import React, { useEffect } from "react";
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { CartProvider } from "./contexts/CartContext";
-// import { FilterProvider } from "./contexts/FilterContext";
-
-
 import Layout from "./components/Layout";
 import Home from "./pages/Home";
 import HomeAuth from "./pages/Auth/HomeAuth";
@@ -45,11 +37,14 @@ function App() {
           <BrowserRouter>
             <ScrollToTop />
             <AuthProvider>
-              {/* <FilterProvider> */}
               <Routes>
                 <Route element={<Layout />}>
                   <Route path="/" element={<Home />} />
-                  <Route path="/auth" element={<RequireAuth adminOnly><React.Fragment><HomeAuth /></React.Fragment></RequireAuth>}></Route>
+                  <Route path="/auth" element={
+                    <RequireAuth adminOnly>
+                      <React.Fragment><HomeAuth /></React.Fragment>
+                    </RequireAuth>
+                  } />
 
                   <Route path="/products" element={<Products />} />
                   <Route path="/products/:productID" element={<ProductDetail />} />
@@ -58,17 +53,40 @@ function App() {
                   <Route path="/login" element={<Login />} />
                   <Route path="/register" element={<Register />} />
 
-                  <Route path="/products/create" element={<RequireAuth adminOnly><React.Fragment><ProductCreate /></React.Fragment></RequireAuth>} />
-                  <Route path="/products/edit/:id" element={<RequireAuth adminOnly><React.Fragment><ProductEdit /></React.Fragment></RequireAuth>} />
-                  <Route path="/categories/create" element={<RequireAuth adminOnly><CategoryCreate /></RequireAuth>} />
-                  <Route path="/categories/edit/:id" element={<RequireAuth adminOnly><CategoryEdit /></RequireAuth>} />
+                  <Route path="/products/create" element={
+                    <RequireAuth adminOnly>
+                      <React.Fragment><ProductCreate /></React.Fragment>
+                    </RequireAuth>
+                  } />
+                  <Route path="/products/edit/:id" element={
+                    <RequireAuth adminOnly>
+                      <React.Fragment><ProductEdit /></React.Fragment>
+                    </RequireAuth>
+                  } />
+                  <Route path="/categories/create" element={
+                    <RequireAuth adminOnly>
+                      <CategoryCreate />
+                    </RequireAuth>
+                  } />
+                  <Route path="/categories/edit/:id" element={
+                    <RequireAuth adminOnly>
+                      <CategoryEdit />
+                    </RequireAuth>
+                  } />
 
-                  <Route path="/cart-detail" element={<RequireAuth><React.Fragment><CartDetail /></React.Fragment></RequireAuth>}></Route>
-                  <Route path="/buy" element={<RequireAuth><React.Fragment><Buy /></React.Fragment></RequireAuth>}></Route>
+                  <Route path="/cart-detail" element={
+                    <RequireAuth>
+                      <React.Fragment><CartDetail /></React.Fragment>
+                    </RequireAuth>
+                  } />
+                  <Route path="/buy" element={
+                    <RequireAuth>
+                      <React.Fragment><Buy /></React.Fragment>
+                    </RequireAuth>
+                  } />
                 </Route>
                 <Route path="*" element={<NotFound />} />
               </Routes>
-              {/* </FilterProvider> */}
             </AuthProvider>
           </BrowserRouter>
         </CartProvider>

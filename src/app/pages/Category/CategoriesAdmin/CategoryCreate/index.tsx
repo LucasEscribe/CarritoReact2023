@@ -14,12 +14,16 @@ const createCategory = async (formData) => {
   return response.data;
 };
 
+/**
+ * Component for creating a new category.
+ */
 function CategoryCreate() {
   const [formData, setFormData] = useState({
     name: "",
     image: "",
   });
 
+  // Update form data when inputs change
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData({
@@ -28,6 +32,7 @@ function CategoryCreate() {
     });
   };
 
+  // Create a new category mutation
   const mutation = useMutation(createCategory, {
     onSuccess: (data) => {
       alert('Categoría creada exitosamente.');
@@ -43,11 +48,13 @@ function CategoryCreate() {
     },
   });
 
+  // Handle form submission
   const handleSubmit = (event) => {
     event.preventDefault();
     mutation.mutate(formData);
   };
 
+  // Render the category creation form
   return (
     <div className={styles.container}>
       <h1>Crear Categoría</h1>

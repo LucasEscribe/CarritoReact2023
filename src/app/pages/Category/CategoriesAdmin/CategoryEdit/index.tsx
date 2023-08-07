@@ -3,6 +3,9 @@ import { useParams, useLocation } from "react-router-dom";
 import { useQuery, useMutation, useQueryClient } from 'react-query';
 import axios from 'axios';
 
+/**
+ * Component for editing a category.
+ */
 function CategoryEdit() {
     const { id } = useParams<{ id: string }>();
     const location = useLocation();
@@ -14,6 +17,7 @@ function CategoryEdit() {
         image: "",
     });
 
+    // Update category state when inputs change
     const handleInputChange = (event) => {
         const { name, value } = event.target;
         setCategory({
@@ -22,6 +26,7 @@ function CategoryEdit() {
         });
     };
 
+    // Update category mutation
     const updateCategory = async () => {
         const response = await axios.put(
             `https://api.escuelajs.co/api/v1/categories/${id}`,
@@ -33,6 +38,7 @@ function CategoryEdit() {
         return response.data;
     };
 
+    // Delete category mutation
     const deleteCategory = async () => {
         const response = await axios.delete(
             `https://api.escuelajs.co/api/v1/categories/${id}`
@@ -40,6 +46,7 @@ function CategoryEdit() {
         return response.data;
     };
 
+    // Mutations with success, error, and onSettled handling
     const mutationUpdate = useMutation(updateCategory, {
         onSuccess: (data) => {
             alert('Categoría actualizada exitosamente.');
@@ -67,6 +74,7 @@ function CategoryEdit() {
         },
     });
 
+    // Fetch category data or use location state
     const { data, isLoading, isError } = useQuery('category', async () => {
         if (location.state && location.state.category) {
             return location.state.category;
@@ -78,12 +86,14 @@ function CategoryEdit() {
         }
     });
 
+    // Set category state when data is fetched
     React.useEffect(() => {
         if (data) {
             setCategory(data);
         }
     }, [data]);
 
+    // Render based on loading and error states
     if (isLoading) {
         return <div>Cargando...</div>;
     }
@@ -92,6 +102,7 @@ function CategoryEdit() {
         return <div>Error en la data de la categoría.</div>;
     }
 
+    // Handle form submission and category deletion
     const handleSubmit = (event) => {
         event.preventDefault();
         mutationUpdate.mutate();
@@ -101,6 +112,7 @@ function CategoryEdit() {
         mutationDelete.mutate();
     };
 
+    // Render the category edit form and details
     return (
         <div className="container">
             <h1>Editar Categoría</h1>

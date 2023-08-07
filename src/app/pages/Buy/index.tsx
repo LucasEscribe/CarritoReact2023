@@ -3,22 +3,28 @@ import { Link, useNavigate } from "react-router-dom";
 import styles from "./styles.module.css";
 import { useCart } from "../../contexts/CartContext";
 
+/**
+ * Buy page component.
+ */
 function Buy() {
   const { cartItems, totalPrice, updateTotalPrice, clearCart } = useCart();
   const navigate = useNavigate();
 
+  // Handle buy all button click
   const handleBuyAll = () => {
     alert("¡Compra realizada con éxito!");
     updateTotalPrice(0);
     clearCart();
   };
 
+  // Format total price as currency
   const formattedTotal = totalPrice.toLocaleString("es-AR", {
     style: "currency",
     currency: "ARS",
     minimumFractionDigits: 2,
   });
 
+  // Render the component
   if (cartItems.length === 0) {
     return (
       <>

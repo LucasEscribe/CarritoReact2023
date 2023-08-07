@@ -4,9 +4,14 @@ import ProductCard from "../../../components/ProductCard";
 import styles from "./styles.module.css";
 import Home from "../../../pages/Home";
 
+/**
+ * Car Detail page component.
+ */
 function CartDetail() {
+  // State variables
   const { cartItems } = useCart();
 
+  // Render
   return (
     <>
       <div className={styles.header}>

@@ -34,6 +34,7 @@ function ProductComponent({ categoryID }: ProductComponentProps) {
   const [offset, setOffset] = useState(0);
   const [limit] = useState(10);
 
+  // Query for fetching products
   const { data, status, error } = useQuery(
     categoryID ? ["products", categoryID, offset, limit] : ["products", offset, limit],
     () => fetchProducts(categoryID, offset, limit)
@@ -41,6 +42,7 @@ function ProductComponent({ categoryID }: ProductComponentProps) {
 
   const { updateTotalPrice } = useCart();
 
+  // Handlers for updating cart total price
   const handleAddProductToCart = (price: number) => {
     updateTotalPrice(price);
   };
@@ -51,12 +53,14 @@ function ProductComponent({ categoryID }: ProductComponentProps) {
 
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
 
+  // Effect to set filtered products
   useEffect(() => {
     if (data) {
       setFilteredProducts(data);
     }
   }, [data]);
 
+  // Handlers for pagination
   const nextPage = () => {
     setOffset(offset + limit);
   };
@@ -67,10 +71,12 @@ function ProductComponent({ categoryID }: ProductComponentProps) {
     }
   };
 
+  // Scroll to top on offset change
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [offset]);
 
+  //JSX
   return (
     <main>
       <div className={styles.header}>

@@ -20,18 +20,21 @@ type CartContextType = {
   clearCart: () => void;
 };
 
+// Create CartContext
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [totalPrice, setTotalPrice] = useState(0);
 
+    // Load cart from localStorage on mount
   useEffect(() => {
     const storedCart = JSON.parse(localStorage.getItem("cart") || "[]");
     setCartItems(storedCart);
     calculateTotalPrice(storedCart);
   }, []);
 
+    // Update localStorage and total price when cart changes
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cartItems));
     calculateTotalPrice(cartItems);

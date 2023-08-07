@@ -6,11 +6,15 @@ import axios from 'axios';
 import React, { useState } from "react";
 import styles from './styles.module.css';
 
+/**
+ * Register page component.
+ */
 function Register() {
   let navigate = useNavigate();
   let auth = UseAuth();
   const [isAdmin, setIsAdmin] = useState(false);
 
+  // Mutation to handle user registration
   const registerMutation = useMutation(
     (data: UserLoginData) => {
       return axios.post('https://api.escuelajs.co/api/v1/users/', {
@@ -43,6 +47,7 @@ function Register() {
     }
   );
 
+  // Handle form submission
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     let formData = new FormData(event.currentTarget);
@@ -53,6 +58,7 @@ function Register() {
     registerMutation.mutate(newUser);
   }
 
+  // Handle admin checkbox change
   function handleAdminCheckboxChange(event: React.ChangeEvent<HTMLInputElement>) {
     setIsAdmin(event.target.checked);
   }
