@@ -14,13 +14,15 @@ type MenuModalProps = {
 
 const MenuModal: React.FC<MenuModalProps> = ({ menuOpen, handleMenuClick }) => {
     if (!menuOpen) return null;
-    
-    const [searchOpen, setSearchOpen] = useState(false);
 
+    // Creating a reference to interact with the DOM element using useRef
     const menuRef = React.useRef<HTMLDivElement>(null);
 
+    // Access user context
     const { user } = useContext(AuthContext);
+    // Access theme context
 
+    // Toggle dark mode and apply to body
     const { darkMode, toggleDarkMode } = useContext(ThemeContext);
 
     const handleToggleDarkMode = () => {
@@ -28,6 +30,7 @@ const MenuModal: React.FC<MenuModalProps> = ({ menuOpen, handleMenuClick }) => {
         document.body.classList.toggle("dark-mode");
     };
 
+    // Sign out user
     const { signout } = useContext(AuthContext);
 
     const handleSignout = () => {
@@ -36,6 +39,7 @@ const MenuModal: React.FC<MenuModalProps> = ({ menuOpen, handleMenuClick }) => {
         });
     };
 
+    // Handle click outside menu to close
     const handleOutsideClick = (event: MouseEvent) => {
         if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
             handleMenuClick();
@@ -50,6 +54,7 @@ const MenuModal: React.FC<MenuModalProps> = ({ menuOpen, handleMenuClick }) => {
         };
     }, [handleMenuClick]);
 
+    // Render the menu modal
     return createPortal(
         <div className={styles.menu} ref={menuRef}>
             <ul className={styles.menuList}>

@@ -3,8 +3,11 @@ import { useMutation, useQueryClient } from 'react-query';
 import axios from 'axios';
 import styles from "./styles.module.css";
 
-
+/**
+ * Component for creating a new product.
+ */
 function ProductCreate() {
+    // State variables
     const [formData, setFormData] = useState({
         title: "",
         price: "",
@@ -13,12 +16,15 @@ function ProductCreate() {
         images: "",
     });
 
+    // Data
     const [categories, setCategories] = useState<{ id: number; name: string }[]>(
         []
     );
 
+    // Query client
     const queryClient = useQueryClient();
 
+    // Event handlers
     const handleInputChange = (event) => {
         const { name, value } = event.target;
         setFormData({
@@ -27,6 +33,7 @@ function ProductCreate() {
         });
     };
 
+    // Mutations
     const createProduct = async () => {
         const response = await axios.post(
             'https://api.escuelajs.co/api/v1/products/',
@@ -67,6 +74,7 @@ function ProductCreate() {
         mutationCreate.mutate();
     };
 
+    // Effects
     React.useEffect(() => {
         const fetchCategories = async () => {
             try {
@@ -82,9 +90,10 @@ function ProductCreate() {
         fetchCategories();
     }, []);
 
+    // Render
     return (
         <div className={styles.container}>
-        <h1>Crear Producto</h1>
+            <h1>Crear Producto</h1>
             <form onSubmit={handleSubmit}>
                 <label>
                     Nombre del Producto:{" "}

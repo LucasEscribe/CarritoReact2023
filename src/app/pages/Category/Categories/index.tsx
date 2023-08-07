@@ -8,6 +8,7 @@ import { Category } from "../../../types/category";
 
 type CategoryProps = Category;
 
+// Fetch categories from API
 const fetchCategories = async () => {
   const res = await fetch("https://api.escuelajs.co/api/v1/categories");
   const json = await res.json();
@@ -19,10 +20,14 @@ const fetchCategories = async () => {
   return json;
 };
 
+/**
+ * Component displaying a list of categories.
+ */
 function Categories() {
   const { data, status, error } = useQuery(QUERY_KEY_CATEGORIES, fetchCategories);
   const { user } = useContext(AuthContext);
 
+  // Render category list
   return (
     <main>
       <div className={styles.header}>

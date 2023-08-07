@@ -3,9 +3,14 @@ import { useParams } from "react-router-dom";
 import { useQuery, useMutation, useQueryClient } from 'react-query';
 import axios from 'axios';
 
+/**
+ * Component for editing a product.
+ */
 function ProductEdit() {
+  // Get the product ID from the route parameters
   const { id } = useParams<{ id: string }>();
 
+  // State to hold the product data
   const [product, setProduct] = useState({
     title: "",
     price: 0,
@@ -13,6 +18,7 @@ function ProductEdit() {
     images: "",
   });
 
+  // Handle input change for the form fields
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setProduct({
@@ -21,6 +27,7 @@ function ProductEdit() {
     });
   };
 
+  // Function to update the product using a PUT request
   const updateProduct = async () => {
     const response = await axios.put(
       `https://api.escuelajs.co/api/v1/products/${id}`,
@@ -34,8 +41,10 @@ function ProductEdit() {
     return response.data;
   };
 
+  // Create a query client instance
   const queryClient = useQueryClient();
 
+  // Use mutation for updating the product
   const mutationUpdate = useMutation(updateProduct, {
     onSuccess: (data) => {
       alert('Producto actualizado exitosamente.');
@@ -46,15 +55,18 @@ function ProductEdit() {
       console.error(error);
     },
     onSettled: () => {
+      // Invalidate the 'product' query to refetch updated data
       queryClient.invalidateQueries('product');
     },
   });
 
+  // Handle form submission for updating the product
   const handleUpdate = (event) => {
     event.preventDefault();
     mutationUpdate.mutate();
   };
 
+  // Function to delete the product
   const handleDelete = async () => {
     try {
       const response = await axios.delete(
@@ -68,6 +80,7 @@ function ProductEdit() {
     }
   };
 
+  // Fetch product data using a query
   const { data, isLoading, isError } = useQuery('product', async () => {
     const response = await axios.get(
       `https://api.escuelajs.co/api/v1/products/${id}`
@@ -75,6 +88,7 @@ function ProductEdit() {
     return response.data;
   });
 
+  // Set the product data when fetched
   useEffect(() => {
     if (data) {
       setProduct(data);

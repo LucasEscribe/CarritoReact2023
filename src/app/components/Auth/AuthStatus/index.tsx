@@ -7,6 +7,7 @@ function AuthStatus() {
   let location = useLocation();
   let auth = useAuth();
 
+  // Display greeting for visitor or welcome for authenticated user.
   if (!auth.user) {
     return <p className={styles.greeting}>Hola, Visitante!</p>;
   }

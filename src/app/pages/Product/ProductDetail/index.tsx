@@ -8,6 +8,7 @@ import { AuthContext } from "../../../contexts/AuthContext";
 import { ThemeContext } from "../../../contexts/ThemeContext";
 import ProductCard from "../../../components/ProductCard";
 
+// Function to fetch product details from the API
 const fetchProduct = async (productID: string) => {
   const res = await fetch(
     `https://api.escuelajs.co/api/v1/products/${productID}`
@@ -22,17 +23,26 @@ const fetchProduct = async (productID: string) => {
 };
 
 function ProductDetail() {
+  // Get darkMode value from ThemeContext
   const { darkMode } = useContext(ThemeContext);
+
+  // Get productID from route parameters
   const { productID } = useParams();
+
+  // Fetch product details using useQuery
   const { data, status, error } = useQuery(
     ["product", productID],
     () => fetchProduct(productID || "")
   );
+
+  // Get user data from AuthContext
   const { user } = useContext(AuthContext);
 
-  const { updateCart } = useCart();
+  // State for managing cart quantity
   const [quantity, setQuantity] = useState(0);
 
+  // Function to update cart and quantity
+  const { updateCart } = useCart();
   const handleUpdateCart = (quantityChange: number) => {
     setQuantity((prevQuantity) => prevQuantity + quantityChange);
     updateCart({
@@ -41,11 +51,13 @@ function ProductDetail() {
     });
   };
 
+  // Function to handle adding a unit to the cart
   const handleAddUnit = () => {
     setQuantity((prevQuantity) => prevQuantity + 1);
     handleUpdateCart(1);
   };
 
+  // Function to handle removing a unit from the cart
   const handleRemoveUnit = () => {
     if (quantity > 0) {
       setQuantity((prevQuantity) => prevQuantity - 1);
@@ -53,6 +65,7 @@ function ProductDetail() {
     }
   };
 
+  // Handle different loading and error states
   if (status === "loading") {
     return <h1>Cargando...</h1>;
   }
@@ -61,13 +74,15 @@ function ProductDetail() {
     return <h1>Error: {(error as Error).message}</h1>;
   }
 
+  // Extract product data from fetched data
   const product: Product = data;
 
+  // Determine the CSS class for product container based on darkMode
   const productContainerClassName = darkMode
-  ? styles.productContainer
-  : `${styles.productContainer} ${styles.productContainerLight}`;
+    ? styles.productContainer
+    : `${styles.productContainer} ${styles.productContainerLight}`;
 
-
+  // Format price and subtotal
   const formattedPrice = product.price.toLocaleString("es-AR", {
     style: "currency",
     currency: "ARS",
@@ -81,10 +96,12 @@ function ProductDetail() {
     minimumFractionDigits: 2,
   });
 
+  // Handle multiple images for the product
   const images = Array.isArray(product.images)
     ? product.images
     : [product.images];
 
+  //render
   return (
     <>
       <div>

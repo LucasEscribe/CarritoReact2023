@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 import styles from "./styles.module.css";
 import React from "react";
 
+/**
+ * Component for the authenticated home page.
+ */
 function HomeAuth() {
     return (
         <div className={styles.container}>

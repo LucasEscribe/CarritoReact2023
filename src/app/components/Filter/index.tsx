@@ -9,6 +9,7 @@ type FilterProps = {
 };
 
 function Filter({ products, setFilteredProducts }: FilterProps) {
+    // State variables for filter options
     const [searchOpen, setSearchOpen] = useState(false);
     const [title, setTitle] = useState("");
     const [categories, setCategories] = useState<Category[]>([]);
@@ -16,6 +17,7 @@ function Filter({ products, setFilteredProducts }: FilterProps) {
     const [minPrice, setMinPrice] = useState("");
     const [maxPrice, setMaxPrice] = useState("");
 
+    // Handle filter logic
     const handleFilter = () => {
         let filteredProducts = [...products];
 
@@ -46,6 +48,7 @@ function Filter({ products, setFilteredProducts }: FilterProps) {
         setFilteredProducts(filteredProducts);
     };
 
+    // Handle reset of filter options
     const handleReset = () => {
         setTitle("");
         setCategory("");
@@ -54,10 +57,12 @@ function Filter({ products, setFilteredProducts }: FilterProps) {
         setFilteredProducts(products);
     };
 
+    // Handle opening and closing of the filter section
     const handleClose = () => {
         setSearchOpen(!searchOpen);
     }
 
+    // Fetch categories from API
     useEffect(() => {
         fetch("https://api.escuelajs.co/api/v1/categories")
             .then(response => response.json())
@@ -65,6 +70,7 @@ function Filter({ products, setFilteredProducts }: FilterProps) {
             .catch(error => console.error("Error fetching categories:", error));
     }, []);
 
+    //JSX
     return (
         <>
             {searchOpen && (

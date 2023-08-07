@@ -12,6 +12,7 @@ function RequireAuth({ adminOnly, customerOnly, children }: RequireAuthProps) {
   let location = useLocation();
   let auth = useAuth();
 
+  // Redirect to login if user is not authenticated.
   if (!auth.user) {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }

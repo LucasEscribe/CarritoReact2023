@@ -15,14 +15,21 @@ import { ShoppingCart } from '@mui/icons-material';
 
 
 function NavBar() {
+    // State variables
     const [menuOpen, setMenuOpen] = useState(false);
+    // Creating a reference to a DOM element using useRef
+    // This reference will be used to check if a click event occurred outside the menu
     const menuRef = useRef<HTMLDivElement>(null);
+    // Locations
     const location = useLocation();
     const isCartDetailPage = location.pathname === "/cart-detail";
 
+    // Hooks
+    // Handling the menu button click event  
     const handleMenuClick = () => {
         setMenuOpen(!menuOpen);
 
+        // Handling click outside the menu
         const handleOutsideClick = (event: MouseEvent) => {
             if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
                 setMenuOpen(false);
@@ -38,14 +45,14 @@ function NavBar() {
 
     const { user } = useContext(AuthContext);
 
-
+    //JSX
     return (
         <>
             <div className={styles.navbarContainer}>
                 <div>
                     <button
-                    className={`${styles.menuButton} ${styles.transparentButton}`}
-                    onClick={handleMenuClick}>
+                        className={`${styles.menuButton} ${styles.transparentButton}`}
+                        onClick={handleMenuClick}>
                         <span className={styles.menuIcon}>&#8942;</span>
                     </button>
                 </div>
@@ -55,7 +62,7 @@ function NavBar() {
                         <p>RitoShopa</p>
                     </div>
                 </Link>
-                
+
                 {isCartDetailPage && totalPrice != 0 && (
                     <div className={styles.cartButton}>
                         <Link to={`/buy`}>
@@ -64,8 +71,8 @@ function NavBar() {
                             </button>
                         </Link>
                     </div>
-                )} 
-                
+                )}
+
                 <div className={styles.rightContent}>
                     {!user ? (
                         <>

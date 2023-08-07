@@ -1,5 +1,8 @@
 import { Link } from "react-router-dom";
 
+/**
+ * Component for the Error page.
+ */
 function NotFound() {
   return (
     <>

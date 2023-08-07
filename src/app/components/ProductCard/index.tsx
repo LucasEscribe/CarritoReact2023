@@ -12,15 +12,19 @@ type ProductProps = Product;
 type HandleProps = HandleProductCart;
 
 function ProductCard(props: ProductProps & HandleProps) {
+  // Contexts
   const { darkMode } = useContext(ThemeContext);
   const { cartItems, updateCart, removeItemFromCart } = useCart();
+  // Cart item handling
   const cartItem = cartItems.find((item) => item.id === props.id);
   const currentQuantity = cartItem ? cartItem.quantity : 0;
+  // State
   const [quantity, setQuantity] = useState(currentQuantity);
+  // Location
   const location = useLocation();
   const isCartDetailPage = location.pathname === "/cart-detail";
 
-
+  // Handlers
   const handleUpdateCart = (quantityChange: number) => {
     const newQuantity = quantity + quantityChange;
     setQuantity(newQuantity);
@@ -49,14 +53,14 @@ function ProductCard(props: ProductProps & HandleProps) {
     setQuantity(0);
   };
 
+  // Effects
   useEffect(() => {
     if (currentQuantity !== quantity) {
       setQuantity(currentQuantity);
     }
   }, [currentQuantity]);
 
-
-
+  // Formatting
   const formattedPrice = props.price.toLocaleString("es-AR", {
     style: "currency",
     currency: "ARS",
@@ -70,7 +74,7 @@ function ProductCard(props: ProductProps & HandleProps) {
     minimumFractionDigits: 2,
   });
 
-
+  // JSX
   return (
     <Link to={`/products/${props.id}`} className={styles.productLink}>
       <div className={styles.product_container}>
