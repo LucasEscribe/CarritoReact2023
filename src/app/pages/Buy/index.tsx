@@ -46,7 +46,7 @@ function Buy() {
       <div className={styles.cartContainer}>
         {cartItems.map((item) => (
           <div key={item.id} className={styles.cartItem}>
-            <img src={item.category.image} alt={item.title} className={styles.cartItemImage} />
+            <img src={item.images} alt={item.title} className={styles.cartItemImage} />
             <span className={styles.cartItemName}>{item.title}</span>
             <span className={styles.cartItemQuantity}>{item.quantity}</span>
           </div>
